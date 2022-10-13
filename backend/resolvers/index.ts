@@ -4,7 +4,10 @@ module.exports = {
   songs: async (args) => {
     try {
       const songsFetched = await Song.find()
-        return songsFetched.map(song => {
+        return songsFetched.filter(song => 
+          ((args.year)? (song.year == args.year): (true)) &&
+          ((args.search)? ((song.song).includes(args.search) || (song.artist).includes(args.search)): (true))
+          ).map(song => {
           return {
             ...song._doc,
             _id: song.id,
