@@ -1,13 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Collection } from 'mongoose';
 
 const songSchema = new Schema(
   {
-    artist: {
-      type: String,
-      required: true,
-    },
-
-    song: {
+    name: {
       type: String,
       required: true,
     },
@@ -16,7 +11,13 @@ const songSchema = new Schema(
         type: Number,
         required: true,
       },
-  }
+      
+    artists: {
+        type: [String],
+        required: true,
+      },
+  },
+  {collection: "songs2"}
 )
 
 module.exports = model("Song", songSchema)

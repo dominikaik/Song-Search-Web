@@ -3,11 +3,9 @@ const Song = require("../models/song")
 module.exports = {
   songs: async (args) => {
     try {
-      const songsFetched = await Song.find()
-        return songsFetched.filter(song => 
-          ((args.year)? (song.year == args.year): (true)) &&
-          ((args.search)? ((song.song).includes(args.search) || (song.artist).includes(args.search)): (true))
-          ).map(song => {
+      const songsFetched = await Song.find().limit(args.limit).skip((args.page-1)*args.limit)
+      const count = await Song.count();
+        return songsFetched.map(song => {
           return {
             ...song._doc,
             _id: song.id,
