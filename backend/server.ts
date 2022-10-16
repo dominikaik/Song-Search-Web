@@ -20,7 +20,7 @@ mongoose
       useUnifiedTopology: true, 
       useNewUrlParser: true 
     })
-  .then(() => app.listen(3000, console.log("Server is running")))
+  .then(() => app.listen(4000, console.log("Server is running")))
   .catch(error => {
     throw error
   })
