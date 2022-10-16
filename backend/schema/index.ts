@@ -9,6 +9,12 @@ module.exports = buildSchema(`
     year: Int!
   }
 
+  type SongQuery {
+    songs: [Song!]
+    page: Int!
+    totalPages: Int!
+  }
+
 
   input SongInput {
     artist: [String]!
@@ -17,7 +23,7 @@ module.exports = buildSchema(`
   }
 
   type Query {
-    songs(page: Int, limit: Int):[Song!]
+    getSongs(page: Int, limit: Int, search: String, year: Int): SongQuery
   }
 
   type Mutation {
