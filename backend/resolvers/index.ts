@@ -32,7 +32,9 @@ module.exports = {
     }
   },
 
-  createSong: async args => {
+
+  //Not currently in use, needs more arguments to work if it's going to be used
+  createSong: async (args: { song: { artist: string[]; song: string; year: Number; }; }) => {
     try {
       const { artist, song, year } = args.song
       const Nsong = new Song({
