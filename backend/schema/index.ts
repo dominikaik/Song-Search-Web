@@ -7,6 +7,14 @@ module.exports = buildSchema(`
     name: String!
     artists: [String]!
     year: Int!
+    energy: Float!
+    popularity: Int!
+    tempo: Float!
+    duration_ms: Int!
+    danceability: Float!
+    explicit: Boolean!
+    acousticness: Float!
+    key: Int!
   }
 
   type SongQuery {
@@ -23,7 +31,7 @@ module.exports = buildSchema(`
   }
 
   type Query {
-    getSongs(page: Int, limit: Int, search: String, year: Int): SongQuery
+    getSongs(page: Int, pageSize: Int, search: String, year: Int): SongQuery
   }
 
   type Mutation {

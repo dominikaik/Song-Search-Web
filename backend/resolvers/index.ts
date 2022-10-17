@@ -1,12 +1,12 @@
 const Song = require("../models/song")
 
 module.exports = {
-  getSongs: async (args: { page: number; limit: number, search: string, year: number }) => {
+  getSongs: async (args: { page: number; pageSize: number, search: string, year: number }) => {
     try {
       /*  Default values for page and page size if not set,
           to prevent sending all data by accident*/
       const page = args.page || 1
-      const limit = args.limit || 10
+      const limit = args.pageSize || 10
       //Search for string if there is any, else return regex to match all.
       const search: string | RegExp = args.search || /.*/
 

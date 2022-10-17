@@ -1,10 +1,11 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 const graphqlSchema = require("./schema")
 const graphqlResolvers = require("./resolvers")
 
 const app = express()
+const port:Number = 4000
 
 app.use(
   "/graphql",
@@ -14,13 +15,13 @@ app.use(
     graphiql: true,
   })
 )
-const uri = `mongodb://admin:letmein@it2810-67.idi.ntnu.no:27017/songs?authSource=admin`
+const uri:string = `mongodb://admin:letmein@it2810-67.idi.ntnu.no:27017/songs?authSource=admin`
 mongoose
   .connect(uri, { 
       useUnifiedTopology: true, 
       useNewUrlParser: true 
-    })
-  .then(() => app.listen(4000, console.log("Server is running")))
+    } as ConnectOptions)
+  .then(() => app.listen(port, () => console.log("Server is running on port", port)))
   .catch(error => {
     throw error
   })
