@@ -46,6 +46,10 @@ const songSchema = new Schema(
       type: Number,
       required: true,
   },
+  rating: {
+    type: Number,
+    required: false,
+},
   },
   {collection: "songs2"}
 )

@@ -10,8 +10,11 @@ module.exports = {
       //Search for string if there is any, else return regex to match all.
       const search: string | RegExp = args.search || /.*/
 
-      const searchQuery:{name: RegExp, year?: number} = {
-        name: new RegExp(search, 'i'),
+      const searchQuery:{$or: ({ name: RegExp; } | { artists: RegExp; })[], year?: number} = {
+        $or:[
+          {name: new RegExp(search, 'i')},
+          {artists: new RegExp(search, 'i')}
+        ],
       };
       //Add year if requested
       (args.year) ? (searchQuery["year"] = args.year) : (null)

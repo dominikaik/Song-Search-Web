@@ -15,6 +15,7 @@ module.exports = buildSchema(`
     explicit: Boolean!
     acousticness: Float!
     key: Int!
+    rating: Int
   }
 
   type SongQuery {
