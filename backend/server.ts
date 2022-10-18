@@ -1,10 +1,13 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 import mongoose, { ConnectOptions } from 'mongoose';
+import cors from 'cors';
 const graphqlSchema = require("./schema")
 const graphqlResolvers = require("./resolvers")
 
 const app = express()
+app.use(cors());
+app.options('*', cors());
 const port:Number = 4000
 
 app.use(

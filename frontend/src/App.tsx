@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import {useQuery, gql} from '@apollo/client'; 
+import FrontPage from './Components/FrontPage'
 
 function App() {
   return (
     <div className="App">
-
+      <FrontPage />
     </div>
   );
 }
