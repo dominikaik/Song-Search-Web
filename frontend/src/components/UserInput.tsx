@@ -5,17 +5,25 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useContext, useEffect, useState } from 'react';
 
 
 function Search() {
+
+    const [search, setSearch] = useState<string>();
+
     return (
         <div>
             <Box sx={{ mt: "20px", minWidth:200 }}>
                 <TextField sx={{ width: '50%' }}
-                    id="search-box" 
+                    id="search-text-field" 
                     variant='outlined' 
                     label="What are you searching for?" 
-                    size="small" />
+                    placeholder="Search..."
+                    size="small" 
+                    onChange={(e) => {
+                        setSearch(e.target.value)
+                    }} value={search}/>
                 <Button variant="contained" >
                     Search
                 </Button>
