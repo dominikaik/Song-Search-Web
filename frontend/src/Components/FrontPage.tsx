@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, gql, ApolloError } from '@apollo/client';
+import { GET_SONGS } from "../GraphQL/Queries";
 
 const FrontPage = () => {
+  const [page, setPage] = useState(1)
+  const [inputs, setInputs] = useState<{search?: string, page: number}>({page: 1})
 
-const GET_SONGS = gql`
-  query {
-    getSongs{
-      songs{
-        name
-        artists
-        danceability
-        year
-      }
-      page
-      totalPages
+  const { loading, error, data } = useQuery(GET_SONGS, {
+    variables: inputs,
+  });
+  const [songs, setSongs] = useState<any>()
+
+  useEffect(() => {
+    if(data){
+      setSongs(data.getSongs)
     }
-  }
-`;
-  const { loading, error, data } = useQuery(GET_SONGS);
-  console.log(data)
+  }, [data])
   
-  if (loading) return <>Loading</>;
+  
+  if (!songs) return <>Loading</>;
   if (error) return <>error</>;
     return (
         <>
         <h2>Spotify explorer</h2>
         <ul>
-        {data.getSongs.songs.map((song: {name: String, year: number}, i: number) =>
+        {songs.songs.map((song: {name: String, year: number}, i: number) =>
         <li key={i}><b>{song.name}</b> released in year {song.year} </li>
         )}
         </ul>
-        Page {data.getSongs.page} of {data.getSongs.totalPages}
+        <button onClick={() => {setInputs({page: Math.abs(inputs.page - 1)})}}>Previous</button>
+        Page {songs.page} of {songs.totalPages}
+        <button onClick={() => {setInputs({page: Math.abs(inputs.page + 1)})}}>Next</button>
         </>
     );
   }
