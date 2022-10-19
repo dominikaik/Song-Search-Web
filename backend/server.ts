@@ -7,7 +7,8 @@ const graphqlResolvers = require("./resolvers")
 
 const app = express()
 app.use(cors());
-app.options('*', cors());
+//Allowing react on same machine, port 3000 to send requests to backend
+app.options('http://localhost:3000/', cors());
 const port:Number = 4000
 
 app.use(
