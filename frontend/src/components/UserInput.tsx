@@ -7,6 +7,14 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useContext, useEffect, useState } from 'react';
 
+declare module '@mui/material/styles' {
+    interface Palette {
+      custom: Palette['primary'];
+    }
+    interface PaletteOptions {
+      custom: PaletteOptions['primary'];
+    }
+  }
 
 function Search() {
 
@@ -29,7 +37,7 @@ function Search() {
                 </Button>
 
                 <FormControl sx={{ ml: "10px", minWidth: 120 }}>
-                    <InputLabel id="dropdown-menu" size='small'>Filter</InputLabel>
+                    <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
                     <Select
                         labelId="dropdown-menu"
                         id="select-search-filter"
