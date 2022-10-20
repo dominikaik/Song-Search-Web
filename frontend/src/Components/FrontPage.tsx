@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useQuery, gql, ApolloError } from '@apollo/client';
+import { useEffect, useState } from "react";
+import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import Search from "./UserInput";
-import { Button, List, ListItem, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper} from '@mui/material';
+import { Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper} from '@mui/material';
 
 
 const styleList = {
   p: "10px", 
-  width: "40vh"
+  width: "60vh", 
+  mx: "auto"
 }
 
 const FrontPage = () => {
@@ -28,23 +29,19 @@ const FrontPage = () => {
   
   if (!songs) return <>Loading</>;
   if (error) return <>error</>;
+
+
     return (
-      <div> 
-        <>
+      <Box>
         <h2>Spotify explorer</h2>
         <Search />
-        {/* <List>
-        {songs.songs.map((song: {name: String, year: number}, i: number) =>
-        <ListItem key={i}><b>{song.name}</b> released in year {song.year} </ListItem>
-        )}
-        </List> */}
-        <Grid
+        <Grid 
           container
           direction="column"
-          alignItems="center"
+          alignItems="center" 
           justifyContent="center"
         >
-          <TableContainer sx={{m:"auto"}} component={Paper}>
+          <TableContainer sx={{mx:"auto"}} component={Paper}>
             <Table sx={{ minWidth: 200, maxWidth: 700 }} aria-label="song table" >
               <TableHead>
                 <TableRow>
@@ -76,8 +73,7 @@ const FrontPage = () => {
         Page {songs.page} of {songs.totalPages}
         <Button sx={{ml:2}} variant="contained" onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
         </Grid>
-        </>
-      </div> 
+       </Box>
     );
   }
   

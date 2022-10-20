@@ -4,8 +4,8 @@ import { Button } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useContext, useEffect, useState } from 'react';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -16,7 +16,7 @@ declare module '@mui/material/styles' {
     }
   }
 
-function Search() {
+export function Search() {
 
     const [search, setSearch] = useState<string>();
 
