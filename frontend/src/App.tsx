@@ -1,10 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import './App.css';
+import {useQuery, gql} from '@apollo/client'; 
 import Search from './components/UserInput';
 
 function App() {
   return (
-    <Search/>
+    <div className="App">
+      <Search />
+    </div>
   );
 }
 
