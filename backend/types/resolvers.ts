@@ -16,3 +16,8 @@ export type searchQueryType = {
         name: RegExp; } | { artists: RegExp; })[], 
         year?: number
     }
+
+export type rateSongArgs = {
+    _id: string, 
+    rating: number
+}

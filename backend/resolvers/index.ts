@@ -1,4 +1,4 @@
-import { getSongsArgs, searchQueryType } from "../types/resolvers"
+import { getSongsArgs, rateSongArgs, searchQueryType } from "../types/resolvers"
 const Song = require("../models/song")
 
 module.exports = {
@@ -37,18 +37,15 @@ module.exports = {
     }
   },
 
-
-  //Not currently in use, needs more arguments to work if it's going to be used
-  createSong: async (args: { song: { artist: string[]; song: string; year: Number; }; }) => {
+  //Connected to mutation for song rating.
+  rateSong: async (args: rateSongArgs) => {
     try {
-      const { artist, song, year } = args.song
-      const Nsong = new Song({
-        artist,
-        song,
-        year,
-      })
-      const newSong = await Nsong.save()
-      return { ...newSong._doc, _id: newSong.id }
+      const id = args._id
+      const rating = args.rating
+      //Manipulates a specific song by id, returns old document.
+      await Song.findByIdAndUpdate(id, {rating: rating})
+      //Returns the current updated song.
+      return Song.findById(id)
     } catch (error) {
       throw error
     }
