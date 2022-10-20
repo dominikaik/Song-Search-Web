@@ -1,10 +1,14 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 import mongoose, { ConnectOptions } from 'mongoose';
+import cors from 'cors';
 const graphqlSchema = require("./schema")
 const graphqlResolvers = require("./resolvers")
 
 const app = express()
+app.use(cors());
+//Allowing react on same machine, port 3000 to send requests to backend
+app.options('http://localhost:3000/', cors());
 const port:Number = 4000
 
 app.use(
