@@ -1,16 +1,18 @@
+import { getSongsArgs, searchQueryType } from "../types/resolvers"
 const Song = require("../models/song")
 
 module.exports = {
-  getSongs: async (args: { page: number; pageSize: number, search: string, year: number }) => {
+  getSongs: async (args: getSongsArgs) => {
     try {
       /*  Default values for page and page size if not set,
           to prevent sending all data by accident*/
       const page = args.page || 1
       const limit = args.pageSize || 10
+      const orderBy = args.orderBy || {}
       //Search for string if there is any, else return regex to match all.
       const search: string | RegExp = args.search || /.*/
 
-      const searchQuery:{$or: ({ name: RegExp; } | { artists: RegExp; })[], year?: number} = {
+      const searchQuery: searchQueryType = {
         $or:[
           {name: new RegExp(search, 'i')},
           {artists: new RegExp(search, 'i')}
@@ -20,9 +22,9 @@ module.exports = {
       (args.year) ? (searchQuery["year"] = args.year) : (null)
 
       //Fetch from DB
-      const songsFetched = await Song.find(searchQuery).limit(limit).skip((page-1)*limit)
-      const count = await Song.find(searchQuery).count();
-      const totalPages = Math.ceil(count / limit)
+      const songsFetched = await Song.find(searchQuery).limit(limit).skip((page-1)*limit).sort(orderBy)
+      const count: number = await Song.find(searchQuery).count();
+      const totalPages: number = Math.ceil(count / limit)
   
       //Return data by format defined in schema
       return {
