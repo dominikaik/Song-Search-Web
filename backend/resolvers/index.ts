@@ -42,10 +42,8 @@ module.exports = {
     try {
       const id = args._id
       const rating = args.rating
-      //Manipulates a specific song by id, returns old document.
-      await Song.findByIdAndUpdate(id, {rating: rating})
-      //Returns the current updated song.
-      return Song.findById(id)
+      //Manipulates a specific song by id, returns new document.
+      return await Song.findByIdAndUpdate(id, {rating: rating}, {returnOriginal: false})
     } catch (error) {
       throw error
     }
