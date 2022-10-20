@@ -3,13 +3,13 @@ import { useQuery, gql, ApolloError } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 
 const FrontPage = () => {
-  const [page, setPage] = useState(1)
   const [inputs, setInputs] = useState<{search?: string, page: number}>({page: 1})
+  const [songs, setSongs] = useState<any>(); 
 
   const { loading, error, data } = useQuery(GET_SONGS, {
     variables: inputs,
   });
-  const [songs, setSongs] = useState<any>()
+ 
 
   useEffect(() => {
     if(data){
