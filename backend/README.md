@@ -38,5 +38,10 @@ Om man ikke spesifiserer er page 1 som standard, og pageSize 10.
   }
 }
 
-
+```
+Søk og filtrering kan gjøres cirka slik:
+```
+getSongs(orderBy: {duration_ms: desc}, pageSize: 5, search: "Fire"){
+  ...
+}
 ```
