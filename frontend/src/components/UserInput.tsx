@@ -38,8 +38,8 @@ function Search() {
                     >
                         <MenuItem value=""> <em>None</em> </MenuItem>
                         <MenuItem value="filter1" >filter1</MenuItem>
-                        <MenuItem value="filter1" >filter2</MenuItem>
-                        <MenuItem value="filter1" >filter2</MenuItem>
+                        <MenuItem value="filter2" >filter2</MenuItem>
+                        <MenuItem value="filter3" >filter3</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
