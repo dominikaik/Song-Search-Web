@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import Search from "./UserInput";
-import { Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper} from '@mui/material';
+import { Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
 
 
 const styleTable = {
@@ -18,7 +18,7 @@ const styleBtn = {
 const FrontPage = () => {
   const [inputs, setInputs] = useState<{search?: string, page: number, pageSize?: number}>({page: 1})
   const [songs, setSongs] = useState<any>(); 
-
+  
   const { loading, error, data } = useQuery(GET_SONGS, {
     variables: inputs,
   });
@@ -37,7 +37,7 @@ const FrontPage = () => {
 
     return (
       <Box>
-        <h2>Spotify explorer</h2>
+        <Typography variant="h3">Spotify explorer</Typography>
         <Search />
         <Grid 
         sx={styleTable}
@@ -47,7 +47,7 @@ const FrontPage = () => {
           justifyContent="center"
         >
           <TableContainer sx={{mx:"auto"}} component={Paper}>
-            <Table aria-label="song table" >
+            <Table aria-label="songtable">
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
@@ -75,9 +75,9 @@ const FrontPage = () => {
           direction="row"
           alignItems="center"
           justifyContent="center">
-        <Button sx={{mr:2}} variant="contained" onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
+        <Button sx={{mr:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
         Page {songs.page} of {songs.totalPages}
-        <Button sx={{ml:2}} variant="contained" onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
+        <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
         </Grid>
        </Box>
     );

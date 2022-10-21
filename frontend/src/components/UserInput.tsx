@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -16,23 +16,22 @@ declare module '@mui/material/styles' {
     }
   }
 
-export function Search() {
-
+export function Search() { 
     const [search, setSearch] = useState<string>();
 
     return (
         <div>
-            <Box sx={{ mt: "20px", minWidth:200 }}>
-                <TextField sx={{ width: '50%' }}
+            <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
+                <TextField sx={{ width: "50%" }}
                     id="search-text-field" 
                     variant='outlined' 
-                    label="What are you searching for?" 
+                    label="Search for a song or artist" 
                     placeholder="Search..."
                     size="small" 
                     onChange={(e) => {
                         setSearch(e.target.value)
                     }} value={search}/>
-                <Button variant="contained" >
+                <Button variant="contained" sx={{ml: "10px"}}>
                     Search
                 </Button>
 
