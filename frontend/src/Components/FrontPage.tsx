@@ -5,10 +5,14 @@ import Search from "./UserInput";
 import { Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper} from '@mui/material';
 
 
-const styleList = {
+const styleTable = {
   p: "10px", 
-  width: "60vh", 
+  width: "65vw", 
   mx: "auto"
+}
+
+const styleBtn = {
+  p: "10px", 
 }
 
 const FrontPage = () => {
@@ -36,13 +40,14 @@ const FrontPage = () => {
         <h2>Spotify explorer</h2>
         <Search />
         <Grid 
+        sx={styleTable}
           container
           direction="column"
           alignItems="center" 
           justifyContent="center"
         >
           <TableContainer sx={{mx:"auto"}} component={Paper}>
-            <Table sx={{ minWidth: 200, maxWidth: 700 }} aria-label="song table" >
+            <Table aria-label="song table" >
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
@@ -65,6 +70,7 @@ const FrontPage = () => {
           </TableContainer>
         </Grid>
         <Grid
+        sx={styleBtn}
           container
           direction="row"
           alignItems="center"
