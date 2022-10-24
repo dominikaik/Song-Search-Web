@@ -4,6 +4,7 @@ import { GET_SONGS } from "../GraphQL/Queries";
 import SongList from "./SongList";
 import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
 import { InputSharp } from "@mui/icons-material";
+import { assertCompositeType } from "graphql";
 
 const styleTable = {
   p: "10px", 
@@ -15,14 +16,33 @@ const styleBtn = {
   p: "10px", 
 }
 
+enum SortBy {
+  danceability = 'danceability',
+  duration_ms  = 'duration_ms',
+  year = 'year',
+  popularity = 'popularity'
+}
+
+enum SortTypes {
+  asc = 'asc',
+  desc = 'desc'
+}
+
 const FrontPage = () => {
-  const [inputs, setInputs] = useState<{search?: string, page: number, pageSize?: number}>({page: 1})
+  const [inputs, setInputs] = useState<{search?: string, page: number, pageSize?: number, orderBy?: {[key in SortBy]?: SortTypes}}>({page: 1, orderBy: {year: SortTypes.desc}})
   const [songs, setSongs] = useState<any>(); 
   const [search, setSearch] = useState<string>();
+  const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
   
   const { loading, error, data } = useQuery(GET_SONGS, {
     variables: inputs,
   });
+
+  //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
+  useEffect(() => {
+    setInputs({page: 1, search: inputs.search, orderBy: {[sortBy]: sort}})
+  }, [sort, sortBy])
  
 
   useEffect(() => {
@@ -61,9 +81,23 @@ const FrontPage = () => {
                     size='small'
                 >
                     <MenuItem value=""> <em>None</em> </MenuItem>
-                    <MenuItem value="filter1" >filter1</MenuItem>
-                    <MenuItem value="filter2" >filter2</MenuItem>
-                    <MenuItem value="filter3" >filter3</MenuItem>
+                    <MenuItem value="danceability" onClick={() => setSortBy(SortBy.danceability)} >Danceability</MenuItem>
+                    <MenuItem value="popularity" onClick={() => setSortBy(SortBy.popularity)} >Popularity</MenuItem>
+                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >year</MenuItem>
+                    <MenuItem value="duration" onClick={() => setSortBy(SortBy.duration_ms)} >duration</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl sx={{ ml: "10px", minWidth: 120 }}>
+                <InputLabel id="dropdown-menu" size='small'>Order</InputLabel>
+                <Select
+                    labelId="dropdown-menu"
+                    id="select-ascending-descending"
+                    label="Filter"
+                    size='small'
+                >
+                    <MenuItem value="Ascending" onClick={() => setSort(SortTypes.asc)}>Ascending</MenuItem>
+                    <MenuItem value="Descending" onClick={() => setSort(SortTypes.desc)}>Descending</MenuItem>
                 </Select>
             </FormControl>
         </Box>
