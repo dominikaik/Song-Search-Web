@@ -58,6 +58,7 @@ const FrontPage = () => {
 
     return (
       <>
+        <Typography color={"white"} variant="h3">Spotify explorer</Typography>
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
             <TextField sx={{ width: "50%" }}
                 id="search-text-field" 
@@ -102,7 +103,7 @@ const FrontPage = () => {
             </FormControl>
         </Box>
         <Box>
-    <Typography variant="h3">Spotify explorer</Typography>
+
     <Grid 
     sx={styleTable}
       container
@@ -128,7 +129,7 @@ const FrontPage = () => {
                 <TableCell>{song.year}</TableCell>
                 <TableCell>{(song.danceability*100).toFixed()}%</TableCell>
               </TableRow>
-            )))};
+            )))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -138,7 +139,7 @@ const FrontPage = () => {
         Page {songs.page} of {songs.totalPages}
         <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
       </>
-    );
+    )
   }
   
 export default FrontPage;  
