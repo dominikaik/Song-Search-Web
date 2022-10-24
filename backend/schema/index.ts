@@ -24,6 +24,18 @@ module.exports = buildSchema(`
     totalPages: Int!
   }
 
+  enum Sort {
+    asc
+    desc
+  }
+
+  input OrderBySelect {
+    year: Sort
+    popularity: Sort
+    danceability: Sort
+    duration_ms: Sort
+  }
+
 
   input SongInput {
     artist: [String]!
@@ -32,11 +44,11 @@ module.exports = buildSchema(`
   }
 
   type Query {
-    getSongs(page: Int, pageSize: Int, search: String, year: Int): SongQuery
+    getSongs(orderBy: OrderBySelect, page: Int, pageSize: Int, search: String, year: Int): SongQuery
   }
 
   type Mutation {
-    createSong(song:SongInput): Song
+    rateSong(_id: ID!, rating: Int!): Song
   }
 
   schema {
