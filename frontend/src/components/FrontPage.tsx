@@ -3,6 +3,13 @@ import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import SongList from "./SongList";
 import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
+import { InputSharp } from "@mui/icons-material";
+
+const styleTable = {
+  p: "10px", 
+  width: "65vw", 
+  mx: "auto"
+}
 
 const styleBtn = {
   p: "10px", 
@@ -38,10 +45,10 @@ const FrontPage = () => {
                 label="Search for a song or artist" 
                 placeholder="Search..."
                 size="small" 
-                onChange={(e) => {
-                    setSearch(e.target.value)
-                }} value={search}/>
-            <Button variant="contained" sx={{ml: "10px"}}>
+                onChange={(e) => {setSearch(e.target.value)
+                }} value={search}
+                />              
+            <Button variant="contained" sx={{ml: "10px"}} onClick={() => (setInputs({search: search, page: 1}))} > 
                 Search
             </Button>
 
@@ -60,7 +67,39 @@ const FrontPage = () => {
                 </Select>
             </FormControl>
         </Box>
-        <SongList songs={songs} />
+        <Box>
+    <Typography variant="h3">Spotify explorer</Typography>
+    <Grid 
+    sx={styleTable}
+      container
+      direction="column"
+      alignItems="center" 
+      justifyContent="center"
+    >
+      <TableContainer sx={{mx:"auto"}} component={Paper}>
+        <Table aria-label="songtable">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Year</TableCell>
+              <TableCell>Danceability</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number }, i: number) => (
+              <TableRow
+                key={song.id}
+              >
+                <TableCell>{song.name}</TableCell>
+                <TableCell>{song.year}</TableCell>
+                <TableCell>{(song.danceability*100).toFixed()}%</TableCell>
+              </TableRow>
+            )))};
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Grid>
+    </Box>
         <Button sx={{mr:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
         Page {songs.page} of {songs.totalPages}
         <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
@@ -68,6 +107,6 @@ const FrontPage = () => {
     );
   }
   
-export default FrontPage; 
+export default FrontPage;  
  
 
