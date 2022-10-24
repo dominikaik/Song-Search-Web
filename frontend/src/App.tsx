@@ -1,6 +1,6 @@
 import { useState, useMemo, createContext } from "react";
 import "./App.css";
-import FrontPage from "./Components/FrontPage";
+import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import { PaletteMode, IconButton, Button } from "@mui/material";
