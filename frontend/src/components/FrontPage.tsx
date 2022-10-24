@@ -72,7 +72,8 @@ const FrontPage = () => {
             <Button variant="contained" sx={{ml: "10px"}} onClick={() => (setInputs({search: search, page: 1}))} > 
                 Search
             </Button>
-
+            </Box>
+            <Box>
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
                 <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
                 <Select
@@ -80,11 +81,11 @@ const FrontPage = () => {
                     id="select-search-filter"
                     label="Filter"
                     size='small'
+                    defaultValue={"year"}
                 >
-                    <MenuItem value=""> <em>None</em> </MenuItem>
+                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >year</MenuItem>
                     <MenuItem value="danceability" onClick={() => setSortBy(SortBy.danceability)} >Danceability</MenuItem>
                     <MenuItem value="popularity" onClick={() => setSortBy(SortBy.popularity)} >Popularity</MenuItem>
-                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >year</MenuItem>
                     <MenuItem value="duration" onClick={() => setSortBy(SortBy.duration_ms)} >duration</MenuItem>
                 </Select>
             </FormControl>
@@ -96,14 +97,15 @@ const FrontPage = () => {
                     id="select-ascending-descending"
                     label="Filter"
                     size='small'
+                    defaultValue={"desc"}
                 >
-                    <MenuItem value="Ascending" onClick={() => setSort(SortTypes.asc)}>Ascending</MenuItem>
-                    <MenuItem value="Descending" onClick={() => setSort(SortTypes.desc)}>Descending</MenuItem>
+                    <MenuItem value="asc" onClick={() => setSort(SortTypes.asc)}>↑ Ascending</MenuItem>
+                    <MenuItem value="desc" onClick={() => setSort(SortTypes.desc)}>↓ Descending</MenuItem>
                 </Select>
             </FormControl>
         </Box>
-        <Box>
 
+    <Box>
     <Grid 
     sx={styleTable}
       container
@@ -118,16 +120,18 @@ const FrontPage = () => {
               <TableCell>Name</TableCell>
               <TableCell>Year</TableCell>
               <TableCell>Danceability</TableCell>
+              <TableCell>Popularity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number }, i: number) => (
+            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, popularity: number }) => (
               <TableRow
                 key={song.id}
               >
                 <TableCell>{song.name}</TableCell>
                 <TableCell>{song.year}</TableCell>
                 <TableCell>{(song.danceability*100).toFixed()}%</TableCell>
+                <TableCell>{song.popularity} / 100</TableCell>
               </TableRow>
             )))}
           </TableBody>

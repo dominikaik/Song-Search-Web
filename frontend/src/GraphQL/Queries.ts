@@ -28,6 +28,7 @@ export const GET_SONGS = gql`
         artists
         danceability
         year
+        popularity
       }
       page
       totalPages
