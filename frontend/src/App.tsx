@@ -12,11 +12,19 @@ export const ColorModeContext = createContext({ switchMode: () => {} });
 declare module "@mui/material/styles/createPalette" { //Find the source for this and add in comment 
   interface Palette {
     custom: { main: string };
+    //buttonColor: {main: string };
   }
   interface PaletteOptions {
     custom: { main: string };
+    //buttonColor: {main: string };
   }
 }
+
+//declare module '@mui/material/Button' {
+//  interface ButtonPropsColorOverrides {
+//    buttonColor: true;
+//  }
+//}
 
 const changeTheme = (mode: PaletteMode) => ({
   palette: {
@@ -37,7 +45,7 @@ const changeTheme = (mode: PaletteMode) => ({
           },
           IconButton: {
             custom: {main: "pink"}
-          }
+          },
         }
       : {
           // Dark mode palette
