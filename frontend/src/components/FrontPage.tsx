@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
-import Search from "./components/UserInput";
+import Search from "./UserInput";
 import { Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
 
 

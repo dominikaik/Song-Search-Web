@@ -7,15 +7,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 
-declare module '@mui/material/styles' {
-    interface Palette {
-      custom: Palette['primary'];
-    }
-    interface PaletteOptions {
-      custom: PaletteOptions['primary'];
-    }
-  }
-
 export function Search() { 
     const [search, setSearch] = useState<string>();
 
