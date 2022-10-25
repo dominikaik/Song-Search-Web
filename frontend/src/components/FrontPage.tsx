@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_SONGS, RATE_SONG } from "../GraphQL/Queries";
-import SongList from "./SongList";
-import {MenuItem, Select, Stack, Chip, Rating, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
+import { GET_SONGS } from "../GraphQL/Queries";
+import { RATE_SONG } from "../GraphQL/Mutations";
+import { MenuItem, Select, Stack, Chip, Rating, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Pagination, Collapse, IconButton, LinearProgress } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { SortBy, SortTypes } from "../enums/order";
+import { getSongsInputs, songsType } from "../types/songData";
 
 const styleTable = {
   p: "10px", 
@@ -18,21 +20,9 @@ const styleEx = {
   mb: "10px"
 }
 
-enum SortBy {
-  danceability = 'danceability',
-  duration_ms  = 'duration_ms',
-  year = 'year',
-  popularity = 'popularity'
-}
-
-enum SortTypes {
-  asc = 'asc',
-  desc = 'desc'
-}
-
 const FrontPage = () => {
-  const [inputs, setInputs] = useState<{search?: string, page: number, pageSize?: number, orderBy?: {[key in SortBy]?: SortTypes}}>({page: 1, orderBy: {year: SortTypes.desc}})
-  const [songs, setSongs] = useState<any>(); 
+  const [inputs, setInputs] = useState<getSongsInputs>({page: 1, orderBy: {year: SortTypes.desc}})
+  const [songs, setSongs] = useState<songsType>(); 
   const [search, setSearch] = useState<string>();
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
@@ -44,7 +34,8 @@ const FrontPage = () => {
     setOpen(-1)
   };
   
-  const { loading, error, data } = useQuery(GET_SONGS, {
+  // Prepare mutation and query, and do the initial fetch.
+  const { error, data } = useQuery(GET_SONGS, {
     variables: inputs,
   });
   const [rateSong] = useMutation(RATE_SONG);
@@ -64,9 +55,8 @@ const FrontPage = () => {
   }, [data])
   
   
-  if (!songs) return <>Loading</>;
-  if (error) return <>error</>;
-
+    if (!songs) return <><LinearProgress /></>;
+    if (error) return <>Something went wrong :/</>;
     return (
       <>
         <Typography color={"white"} variant="h3">Spotify explorer</Typography>
@@ -135,7 +125,7 @@ const FrontPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song: {name: String, year: number, _id: string, danceability: number, key: number, popularity: number, artists: string[], rating: number | null}, index: number) => (
+            {songs.songs.map(((song, index: number) => (
               <><TableRow key={song._id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>

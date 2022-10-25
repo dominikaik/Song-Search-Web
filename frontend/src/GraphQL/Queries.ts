@@ -1,23 +1,5 @@
 import { gql } from '@apollo/client'
-
-// enum SortBy {
-//   danceability,
-//   duration_ms,
-//   year,
-//   popularity
-// }
-
-enum Sort {
-  asc = 'asc',
-  desc = 'desc'
-}
-
-type OrderBySelect = {
-  year: Sort
-  popularity: Sort
-  danceability: Sort
-  duration_ms: Sort
-}
+import { OrderBySelect } from '../types/order'
 
 export const GET_SONGS = gql`
   query($search: String, $page: Int, $pageSize: Int, $orderBy: OrderBySelect) {
@@ -34,16 +16,6 @@ export const GET_SONGS = gql`
       }
       page
       totalPages
-    }
-  }
-`;
-
-export const RATE_SONG = gql`
-  mutation($id: ID!, $rating: Int!) {
-    rateSong(_id: $id, rating: $rating){
-      name
-      rating
-      _id
     }
   }
 `;
