@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import SongList from "./SongList";
-import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
+import {MenuItem, Select, Stack, Chip, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const styleTable = {
@@ -129,7 +129,7 @@ const FrontPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, popularity: number, artists: string[]}, index: number) => (
+            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, key: number, popularity: number, artists: string[]}, index: number) => (
               <><TableRow key={song.id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>
@@ -152,8 +152,20 @@ const FrontPage = () => {
                   <Collapse in={open === index} timeout="auto" unmountOnExit>
                   <Box 
                   sx={{width: "100%"}}> 
-                <TableCell>{(song.danceability * 100).toFixed()}%</TableCell>
-                <TableCell>{song.popularity} / 100</TableCell>
+                  
+                  <Stack direction="row" spacing={2}>
+                  <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
+                  <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
+                  <Chip label={"Key: "+ song.key} variant="outlined" />
+                  </Stack>
+
+                  Artists:
+                  {song.artists.map((artist: string, i:number) => (
+                    <Chip key={i} label={artist} variant="outlined" />
+                    ))}
+                  <Stack direction="row" spacing={2}>
+                  </Stack>
+
                   </Box>
                   </Collapse>
                 </TableCell>
