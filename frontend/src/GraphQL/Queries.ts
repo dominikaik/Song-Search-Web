@@ -30,9 +30,20 @@ export const GET_SONGS = gql`
         year
         key
         popularity
+        rating
       }
       page
       totalPages
+    }
+  }
+`;
+
+export const RATE_SONG = gql`
+  mutation($id: ID!, $rating: Int!) {
+    rateSong(_id: $id, rating: $rating){
+      name
+      rating
+      _id
     }
   }
 `;

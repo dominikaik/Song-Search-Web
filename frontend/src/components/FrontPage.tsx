@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useQuery } from '@apollo/client';
-import { GET_SONGS } from "../GraphQL/Queries";
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_SONGS, RATE_SONG } from "../GraphQL/Queries";
 import SongList from "./SongList";
-import {MenuItem, Select, Stack, Chip, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
+import {MenuItem, Select, Stack, Chip, Rating, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const styleTable = {
@@ -43,7 +43,9 @@ const FrontPage = () => {
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
   const [open, setOpen] = useState<number>(-1); 
-  
+  const [ratedSong, setRatedSong] = useState<{id: string, rating: number | null}>()
+
+
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setInputs({...inputs, page: value}); 
   };
@@ -51,6 +53,7 @@ const FrontPage = () => {
   const { loading, error, data } = useQuery(GET_SONGS, {
     variables: inputs,
   });
+  const [rateSong] = useMutation(RATE_SONG);
 
   //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
   useEffect(() => {
@@ -136,8 +139,8 @@ const FrontPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, key: number, popularity: number, artists: string[]}, index: number) => (
-              <><TableRow key={song.id}>
+            {songs.songs.map(((song: {name: String, year: number, _id: string, danceability: number, key: number, popularity: number, artists: string[], rating: number | null}, index: number) => (
+              <><TableRow key={song._id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>
                   <IconButton
@@ -172,15 +175,17 @@ const FrontPage = () => {
                     ))}
                   <Stack sx={{styleEx}} direction="row" spacing={4}>
                   </Stack>
-
-                    <Box
-                      sx={{mb:"15px"}}
-                      flexDirection="row"
-                       display="flex"
-                       justifyContent="flex-end"
-                       alignItems="flex-end">
-                      rating 
-                    </Box>
+                  <Box
+                   sx={{mb:"15px"}}
+                   flexDirection="row"
+                    display="flex"
+                    justifyContent="flex-end"
+                    alignItems="flex-end">
+                  <Rating
+                      name="song-rating"
+                      value={song.rating}
+                      onChange={(event, newValue) => {rateSong({variables: {id: song._id, rating: newValue}})}}/>
+                  </Box>
 
                   </Box>
                   </Collapse>
