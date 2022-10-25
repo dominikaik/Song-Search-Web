@@ -157,22 +157,23 @@ const FrontPage = () => {
                   <Box 
                   sx={{width: "100%"}}> 
                   
-                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={8}>
+                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={4} justifyItems="center" alignItems="center">
+                  <Chip label="Info" color="primary"/>
                   <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
                   <Chip label={"Key: "+ song.key} variant="outlined" />
                   </Stack>
 
                   <Stack sx={{styleEx}} direction="row" spacing={4}>
-                  <Chip label="artists"/>
+                  <Chip label="Artists" color="primary"/>
                   {song.artists.map((artist: string, i:number) => (
-                    <Chip key={i} label={artist} variant="outlined" />
+                    <Chip key={i} label={artist} variant="outlined" /> 
                     ))}
                   
                   </Stack>
                   <Box
-                   sx={{mb:"15px"}}
-                   flexDirection="row"
+                    sx={{mt: -6, mb: 3}}
+                    flexDirection="column"
                     display="flex"
                     justifyContent="flex-end"
                     alignItems="flex-end">
@@ -180,7 +181,7 @@ const FrontPage = () => {
                       name="song-rating"
                       value={song.rating}
                       onChange={(event, newValue) => {rateSong({variables: {id: song._id, rating: newValue}})}}/>
-                  </Box>
+                  </Box> 
 
                   </Box>
                   </Collapse>
@@ -195,6 +196,7 @@ const FrontPage = () => {
     </Grid>
     </Box>
     <Grid 
+    container 
     m={1}
     display="flex"
     direction="column"
