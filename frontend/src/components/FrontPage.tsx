@@ -11,12 +11,6 @@ const styleTable = {
   mx: "auto"
 }
 
-const styleBtn = {
-  p: "10px", 
-  width: "35vw",
-  mx: "auto"
-}
-
 const styleEx = {
   p: "10px",  
   mx: "auto", 
@@ -163,17 +157,18 @@ const FrontPage = () => {
                   <Box 
                   sx={{width: "100%"}}> 
                   
-                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={6}>
+                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={8}>
                   <Chip sx={{}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip sx={{}} label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
                   <Chip sx={{}} label={"Key: "+ song.key} variant="outlined" />
                   </Stack>
 
-                  Artists:
+                  <Stack sx={{styleEx}} direction="row" spacing={4}>
+                  <Chip label="artists"/>
                   {song.artists.map((artist: string, i:number) => (
                     <Chip key={i} label={artist} variant="outlined" />
                     ))}
-                  <Stack sx={{styleEx}} direction="row" spacing={4}>
+                  
                   </Stack>
                   <Box
                    sx={{mb:"15px"}}
@@ -200,8 +195,9 @@ const FrontPage = () => {
     </Grid>
     </Box>
     <Grid 
-    sx={styleBtn}
-    direction="row"
+    m={1}
+    display="flex"
+    direction="column"
     alignItems="center" 
     justifyContent="center">
       <Pagination 
