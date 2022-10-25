@@ -14,7 +14,8 @@ export type songsType = {
         artists: string[],
         danceability: number,
         year: number,
-        key: number,
+        explicit: boolean,
+        duration_ms: number,
         popularity: number,
         rating: number | null
     }[],

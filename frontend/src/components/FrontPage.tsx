@@ -117,16 +117,17 @@ const FrontPage = () => {
       <TableContainer sx={{mx:"auto"}} component={Paper}>
         <Table aria-label="songtable">
           <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell> Main Artist</TableCell>
-              <TableCell>Year</TableCell>
+            <TableRow key="song-table-titles">
+              <TableCell key="empty"></TableCell>
+              <TableCell key="name" >Name</TableCell>
+              <TableCell key="main-artist">Main Artist</TableCell>
+              <TableCell key="year">Year</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {songs.songs.map(((song, index: number) => (
-              <><TableRow key={song._id}>
+              <>
+              <TableRow key={song._id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>
                   <IconButton
@@ -153,7 +154,8 @@ const FrontPage = () => {
                   <Chip label="Info" color="primary"/>
                   <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
-                  <Chip label={"Key: "+ song.key} variant="outlined" />
+                  <Chip label={Math.floor(song.duration_ms / 60000) +" min : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " sec"} variant="outlined" />
+                  {(song.explicit) ? (<Chip label={"Explicit"} variant="outlined" />) : (null)}
                   </Stack>
 
                   <Stack sx={{styleEx}} direction="row" spacing={4}>

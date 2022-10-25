@@ -10,7 +10,8 @@ export const GET_SONGS = gql`
         artists
         danceability
         year
-        key
+        duration_ms
+        explicit
         popularity
         rating
       }
