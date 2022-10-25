@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import SongList from "./SongList";
-import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem} from '@mui/material';
+import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem, Collapse, IconButton} from '@mui/material';
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const styleTable = {
   p: "10px", 
@@ -34,7 +35,8 @@ const FrontPage = () => {
   const [search, setSearch] = useState<string>();
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
-
+  const [open, setOpen] = useState<number>(-1); 
+  
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setInputs({...inputs, page: value}); 
   };
@@ -115,31 +117,53 @@ const FrontPage = () => {
       direction="column"
       alignItems="center" 
       justifyContent="center"
-    >
+    > 
       <TableContainer sx={{mx:"auto"}} component={Paper}>
         <Table aria-label="songtable">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Name</TableCell>
+              <TableCell> Main Artist</TableCell>
               <TableCell>Year</TableCell>
-              <TableCell>Danceability</TableCell>
-              <TableCell>Popularity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, popularity: number }) => (
-              <TableRow
-                key={song.id}
-              >
+            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number, popularity: number, artists: string[]}, index: number) => (
+              <><TableRow key={song.id}>
+                {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
+                <TableCell>
+                  <IconButton
+                    onClick={() => setOpen(open === index ? -1 : index)}
+                  >
+                    {open === index ? (
+                      <KeyboardArrowUp />
+                    ) : (
+                      <KeyboardArrowDown />
+                    )}
+                  </IconButton>
+                </TableCell>
                 <TableCell>{song.name}</TableCell>
+                <TableCell>{song.artists[0]}</TableCell>
                 <TableCell>{song.year}</TableCell>
-                <TableCell>{(song.danceability*100).toFixed()}%</TableCell>
-                <TableCell>{song.popularity} / 100</TableCell>
               </TableRow>
+              <TableRow>
+                <TableCell colSpan={5} sx={{paddingBottom: 0, paddingTop: 0, border: "0px"}}>
+                  <Collapse in={open === index} timeout="auto" unmountOnExit>
+                  <Box 
+                  sx={{width: "100%"}}> 
+                <TableCell>{(song.danceability * 100).toFixed()}%</TableCell>
+                <TableCell>{song.popularity} / 100</TableCell>
+                  </Box>
+                  </Collapse>
+                </TableCell>
+                </TableRow>
+                </>
             )))}
           </TableBody>
         </Table>
       </TableContainer>
+ 
     </Grid>
     </Box>
     <Grid 
