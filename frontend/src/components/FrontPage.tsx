@@ -37,12 +37,12 @@ const FrontPage = () => {
 
     return (
       <>
-      <Typography variant="h3">Spotify explorer</Typography>
+      <Typography sx={{color:"textColor"}} variant="h3">Spotify explorer</Typography>
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
-            <TextField sx={{ width: "60%", }}
+            <TextField sx={{ width: "60%", borderRadius: "5px", backgroundColor: "searchBar"}} 
+                className="classes.palette"
                 id="search-text-field" 
-                variant='outlined'
-                label="Search for a song or artist" 
+                color="searchBorder"
                 placeholder="Search..."
                 size="small" 
                 onChange={(e) => {
@@ -52,13 +52,14 @@ const FrontPage = () => {
                 Search
             </Button>
 
-            <FormControl sx={{ ml: "10px", minWidth: 120 }}>
+            <FormControl sx={{ ml: "10px", minWidth: 120,}}>
                 <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
-                <Select
+                <Select sx={{backgroundColor: "searchBar",}}
                     labelId="dropdown-menu"
                     id="select-search-filter"
                     label="Filter"
                     size='small'
+                    variant="outlined"
                 >
                     <MenuItem value=""> <em>None</em> </MenuItem>
                     <MenuItem value="filter1" >filter1</MenuItem>
@@ -68,15 +69,15 @@ const FrontPage = () => {
             </FormControl>
         </Box>
 
-        <Box>
-    <Grid 
+    <Box >
+    <Grid  item xs={12} md={9}
     sx={styleTable}
       container
       direction="column"
       alignItems="center" 
       justifyContent="center"
     >
-      <TableContainer sx={{mx:"auto", width:"80%", backgroundColor: "tableRow"}} component={Paper}>
+      <TableContainer sx={{mx:"auto", backgroundColor: "tableRow"}} component={Paper}>
         <Table aria-label="songtable">
           <TableHead >
             <TableRow >

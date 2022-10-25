@@ -15,12 +15,16 @@ declare module "@mui/material/styles/createPalette" { //Find the source for this
     buttonColor: {main: string };
     tableRow: string;
     searchBar: string;
+    textColor: string;
+    searchBorder: string;
   }
   interface PaletteOptions {
     custom: { main: string };
     buttonColor: {main: string };
     tableRow: string;
     searchBar: string;
+    textColor: string;
+    searchBorder: string;
   }
 }
 
@@ -30,9 +34,16 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module'@mui/material/Typography' {
+  interface TypographyPropsColorOverrides {
+    textColor: true;
+  }
+}
+
 declare module '@mui/material/TextField' {
   interface TextFieldPropsColorOverrides {
     searchBar: true;
+    searchBorder: true;
   }
 }
 
@@ -43,15 +54,11 @@ const changeTheme = (mode: PaletteMode) => ({
       ? {
           // Light mode palette
           custom: { 
-            main: "#84A98C" 
+            main: "#CAD2C5" 
           },
           divider: "#354F52",
           background: {
-            default: "#84A98C" 
-          },
-          text: {
-            custom: { main: "black" },
-            secondary: grey[900],
+            default: "#52796F" 
           },
           IconButton: {
             custom: {main: "pink"}
@@ -59,8 +66,10 @@ const changeTheme = (mode: PaletteMode) => ({
           buttonColor: {
             main: "#CAD2C5"
           },
-          tableRow: "#CAD2C5",
+          tableRow: "white",
           searchBar: "white",
+          textColor: "white",
+          searchBorder: "pink",
         }
       : {
           // Dark mode palette
@@ -71,15 +80,13 @@ const changeTheme = (mode: PaletteMode) => ({
           background: {
             default: "#354F52",
           },
-          text: {
-            custom: { main: "white" },
-            secondary: grey[500],
-          },
           buttonColor: {
-            main: "#354F52"
+            main: "#2F3E46"
           },
-          tableRow: "#354F52",
-          searchBar: "black",
+          tableRow: grey[900],
+          searchBar: grey[900],
+          textColor: "white",
+          searchBorder: "pink",
         }),
   },
 });
