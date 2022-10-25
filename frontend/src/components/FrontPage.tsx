@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import SongList from "./SongList";
-import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
-import { InputSharp } from "@mui/icons-material";
-import { assertCompositeType } from "graphql";
+import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme, Pagination, PaginationItem} from '@mui/material';
 
 const styleTable = {
   p: "10px", 
@@ -14,6 +12,8 @@ const styleTable = {
 
 const styleBtn = {
   p: "10px", 
+  width: "35vw",
+  mx: "auto"
 }
 
 enum SortBy {
@@ -34,6 +34,10 @@ const FrontPage = () => {
   const [search, setSearch] = useState<string>();
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setInputs({...inputs, page: value}); 
+  };
   
   const { loading, error, data } = useQuery(GET_SONGS, {
     variables: inputs,
@@ -54,7 +58,6 @@ const FrontPage = () => {
   
   if (!songs) return <>Loading</>;
   if (error) return <>error</>;
-
 
     return (
       <>
@@ -83,10 +86,10 @@ const FrontPage = () => {
                     size='small'
                     defaultValue={"year"}
                 >
-                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >year</MenuItem>
+                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >Year</MenuItem>
                     <MenuItem value="danceability" onClick={() => setSortBy(SortBy.danceability)} >Danceability</MenuItem>
                     <MenuItem value="popularity" onClick={() => setSortBy(SortBy.popularity)} >Popularity</MenuItem>
-                    <MenuItem value="duration" onClick={() => setSortBy(SortBy.duration_ms)} >duration</MenuItem>
+                    <MenuItem value="duration" onClick={() => setSortBy(SortBy.duration_ms)} >Duration</MenuItem>
                 </Select>
             </FormControl>
 
@@ -139,9 +142,22 @@ const FrontPage = () => {
       </TableContainer>
     </Grid>
     </Box>
-        <Button sx={{mr:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
+    <Grid 
+    sx={styleBtn}
+    direction="row"
+    alignItems="center" 
+    justifyContent="center">
+      <Pagination 
+      variant="outlined"
+      color="primary"
+      count={songs.totalPages} 
+      page={songs.page}
+      onChange={handlePageChange} 
+      />
+        {/* <Button sx={{mr:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
         Page {songs.page} of {songs.totalPages}
-        <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
+        <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button> */}
+        </Grid>
       </>
     )
   }
