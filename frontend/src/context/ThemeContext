@@ -1,0 +1,12 @@
+import { useState, createContext, ReactNode, useEffect } from "react"; 
+
+export const theme = {
+    backgroundColor: "#e7e0e9",
+    color: "#fcf7ff",
+    textcolor: "black",
+    buttonColor: "#8d6b94", 
+}
+
+const pageTheme = createContext({});
+
+export default pageTheme;
