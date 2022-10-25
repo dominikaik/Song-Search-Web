@@ -36,12 +36,12 @@ const FrontPage = () => {
   const [search, setSearch] = useState<string>();
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
-  const [open, setOpen] = useState<number>(-1); 
-  const [ratedSong, setRatedSong] = useState<{id: string, rating: number | null}>()
-
+  const [open, setOpen] = useState<number>(-1);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setInputs({...inputs, page: value}); 
+    // Close open info on page change
+    setOpen(-1)
   };
   
   const { loading, error, data } = useQuery(GET_SONGS, {
@@ -52,6 +52,8 @@ const FrontPage = () => {
   //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
   useEffect(() => {
     setInputs({page: 1, search: inputs.search, orderBy: {[sortBy]: sort}})
+    // Close open info when filtering
+    setOpen(-1)
   }, [sort, sortBy])
  
 
@@ -78,7 +80,7 @@ const FrontPage = () => {
                 onChange={(e) => {setSearch(e.target.value)
                 }} value={search}
                 />              
-            <Button variant="contained" sx={{ml: "10px"}} onClick={() => (setInputs({search: search, page: 1}))} > 
+            <Button variant="contained" sx={{ml: "10px"}} onClick={() => {setInputs({search: search, page: 1}); setOpen(-1)}} > 
                 Search
             </Button>
             </Box>
@@ -177,6 +179,7 @@ const FrontPage = () => {
                     display="flex"
                     justifyContent="flex-end"
                     alignItems="flex-end">
+                  Rate this song:
                   <Rating
                       name="song-rating"
                       value={song.rating}
