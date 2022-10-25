@@ -158,9 +158,9 @@ const FrontPage = () => {
                   sx={{width: "100%"}}> 
                   
                   <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={8}>
-                  <Chip sx={{}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
-                  <Chip sx={{}} label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
-                  <Chip sx={{}} label={"Key: "+ song.key} variant="outlined" />
+                  <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
+                  <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
+                  <Chip label={"Key: "+ song.key} variant="outlined" />
                   </Stack>
 
                   <Stack sx={{styleEx}} direction="row" spacing={4}>
@@ -207,9 +207,6 @@ const FrontPage = () => {
       page={songs.page}
       onChange={handlePageChange} 
       />
-        {/* <Button sx={{mr:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
-        Page {songs.page} of {songs.totalPages}
-        <Button sx={{ml:2}} variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button> */}
         </Grid>
       </>
     )
