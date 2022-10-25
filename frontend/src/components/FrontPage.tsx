@@ -17,6 +17,13 @@ const styleBtn = {
   mx: "auto"
 }
 
+const styleEx = {
+  p: "10px",  
+  mx: "auto", 
+  mt: "10px", 
+  mb: "10px"
+}
+
 enum SortBy {
   danceability = 'danceability',
   duration_ms  = 'duration_ms',
@@ -153,18 +160,27 @@ const FrontPage = () => {
                   <Box 
                   sx={{width: "100%"}}> 
                   
-                  <Stack direction="row" spacing={2}>
-                  <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
-                  <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
-                  <Chip label={"Key: "+ song.key} variant="outlined" />
+                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={6}>
+                  <Chip sx={{}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
+                  <Chip sx={{}} label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
+                  <Chip sx={{}} label={"Key: "+ song.key} variant="outlined" />
                   </Stack>
 
                   Artists:
                   {song.artists.map((artist: string, i:number) => (
                     <Chip key={i} label={artist} variant="outlined" />
                     ))}
-                  <Stack direction="row" spacing={2}>
+                  <Stack sx={{styleEx}} direction="row" spacing={4}>
                   </Stack>
+
+                    <Box
+                      sx={{mb:"15px"}}
+                      flexDirection="row"
+                       display="flex"
+                       justifyContent="flex-end"
+                       alignItems="flex-end">
+                      rating 
+                    </Box>
 
                   </Box>
                   </Collapse>
