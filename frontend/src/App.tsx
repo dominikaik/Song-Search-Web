@@ -12,19 +12,29 @@ export const ColorModeContext = createContext({ switchMode: () => {} });
 declare module "@mui/material/styles/createPalette" { //Find the source for this and add in comment 
   interface Palette {
     custom: { main: string };
-    //buttonColor: {main: string };
+    buttonColor: {main: string };
+    tableRow: string;
+    searchBar: string;
   }
   interface PaletteOptions {
     custom: { main: string };
-    //buttonColor: {main: string };
+    buttonColor: {main: string };
+    tableRow: string;
+    searchBar: string;
   }
 }
 
-//declare module '@mui/material/Button' {
-//  interface ButtonPropsColorOverrides {
-//    buttonColor: true;
-//  }
-//}
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    buttonColor: true;
+  }
+}
+
+declare module '@mui/material/TextField' {
+  interface TextFieldPropsColorOverrides {
+    searchBar: true;
+  }
+}
 
 const changeTheme = (mode: PaletteMode) => ({
   palette: {
@@ -41,16 +51,21 @@ const changeTheme = (mode: PaletteMode) => ({
           },
           text: {
             custom: { main: "black" },
-            secondary: "grey",
+            secondary: grey[900],
           },
           IconButton: {
             custom: {main: "pink"}
           },
+          buttonColor: {
+            main: "#CAD2C5"
+          },
+          tableRow: "#CAD2C5",
+          searchBar: "white",
         }
       : {
           // Dark mode palette
           custom: { 
-            main: "#CAD2C5" 
+            main: "#2F3E46" 
           },
           divider: grey[200],
           background: {
@@ -60,6 +75,11 @@ const changeTheme = (mode: PaletteMode) => ({
             custom: { main: "white" },
             secondary: grey[500],
           },
+          buttonColor: {
+            main: "#354F52"
+          },
+          tableRow: "#354F52",
+          searchBar: "black",
         }),
   },
 });
