@@ -5,7 +5,7 @@ import { RATE_SONG } from "../GraphQL/Mutations";
 import { MenuItem, Select, Stack, Chip, Rating, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Pagination, Collapse, IconButton, LinearProgress } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { SortBy, SortTypes } from "../enums/order";
-import { getSongsInputs, songsType } from "../types/songData";
+import { getSongsInputs, songsDataType, songsType } from "../types/songData";
 
 const styleTable = {
   p: "10px", 
@@ -35,7 +35,7 @@ const FrontPage = () => {
   };
   
   // Prepare mutation and query, and do the initial fetch.
-  const { error, data } = useQuery(GET_SONGS, {
+  const { loading, error, data } = useQuery<songsDataType, getSongsInputs>(GET_SONGS, {
     variables: inputs,
   });
   const [rateSong] = useMutation(RATE_SONG);
@@ -55,8 +55,8 @@ const FrontPage = () => {
   }, [data])
   
   
-    if (!songs) return <><LinearProgress /></>;
-    if (error) return <>Something went wrong :/</>;
+    if (!songs && loading) return <><LinearProgress /></>;
+    if (error || !songs) return <><Box style={{ minHeight: '80vh' }} display="flex" justifyContent={"center"} alignItems={"center"} ><Typography color={"white"} variant="h5">Something went wrong :/<br/>Is the backend server running?</Typography></Box></>;
     return (
       <>
         <Typography color={"white"} variant="h3">Spotify explorer</Typography>
