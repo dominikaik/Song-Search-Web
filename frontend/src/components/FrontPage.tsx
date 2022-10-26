@@ -154,7 +154,7 @@ const FrontPage = () => {
                   <Chip label="Info" color="primary"/>
                   <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
-                  <Chip label={Math.floor(song.duration_ms / 60000) +" min : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " sec"} variant="outlined" />
+                  <Chip label={Math.floor(song.duration_ms / 60000) +" : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " min"} variant="outlined" />
                   {(song.explicit) ? (<Chip label={"Explicit"} variant="outlined" />) : (null)}
                   </Stack>
 
