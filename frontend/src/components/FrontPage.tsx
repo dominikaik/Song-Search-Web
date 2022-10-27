@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useReactiveVar } from '@apollo/client';
-import { MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Typography, Pagination } from '@mui/material';
+import { MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Typography, Pagination} from '@mui/material';
 import { SortBy, SortTypes } from "../enums/order";
 import SongList from "./SongList";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
@@ -30,29 +30,29 @@ const FrontPage = () => {
   
     return (
       <>
-        <Typography color={"white"} variant="h3">Spotify explorer</Typography>
+      <Typography sx={{color:"textColor"}} variant="h3">Spotify explorer</Typography>
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
-            <TextField sx={{ width: "50%" }}
+            <TextField sx={{ width: "60%", borderRadius: "5px", backgroundColor: "searchBar"}} 
                 id="search-text-field" 
-                variant='outlined' 
-                label="Search for a song or artist" 
+                color="searchBorder"
                 placeholder="Search..."
                 size="small" 
                 onChange={(e) => {setSearch(e.target.value)
                 }} value={search}
                 />              
-            <Button variant="contained" sx={{ml: "10px"}} onClick={() => {songQueryVars({search: search, page: 1}); openSongTab(-1)}} > 
+            <Button color="buttonColor" variant="contained" sx={{ml: "10px"}} onClick={() => {songQueryVars({search: search, page: 1}); openSongTab(-1)}} > 
                 Search
             </Button>
             </Box>
             <Box>
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
                 <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
-                <Select
+                <Select sx={{backgroundColor: "searchBar",}}
                     labelId="dropdown-menu"
                     id="select-search-filter"
                     label="Filter"
                     size='small'
+                    variant="outlined"
                     defaultValue={"year"}
                 >
                     <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >Year</MenuItem>
@@ -64,11 +64,12 @@ const FrontPage = () => {
 
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
                 <InputLabel id="dropdown-menu" size='small'>Order</InputLabel>
-                <Select
+                <Select sx={{backgroundColor: "searchBar",}}
                     labelId="dropdown-menu"
                     id="select-ascending-descending"
                     label="Filter"
                     size='small'
+                    variant="outlined"
                     defaultValue={"desc"}
                 >
                     <MenuItem value="asc" onClick={() => setSort(SortTypes.asc)}>↑ Ascending</MenuItem>
@@ -77,7 +78,7 @@ const FrontPage = () => {
             </FormControl>
         </Box>
 
-      <SongList/>
+    <SongList/>
       
     <Grid 
     container 

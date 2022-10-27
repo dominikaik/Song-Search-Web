@@ -9,7 +9,6 @@ import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../
 
 const styleTable = {
   p: "10px", 
-  width: "65vw", 
   mx: "auto"
 }
 
@@ -48,14 +47,14 @@ function SongList() {
   return (
     <>
     <Box>
-    <Grid 
-    sx={styleTable}
+    <Grid item xs={12} md={9}
+      sx={styleTable}
       container
       direction="column"
       alignItems="center" 
       justifyContent="center"
     > 
-      <TableContainer sx={{mx:"auto"}} component={Paper}>
+      <TableContainer sx={{mx:"auto", backgroundColor: "tableRow"}} component={Paper}>
         <Table aria-label="songtable">
           <TableHead>
             <TableRow key="song-table-titles">
@@ -88,8 +87,7 @@ function SongList() {
               <TableRow>
                 <TableCell colSpan={5} sx={{paddingBottom: 0, paddingTop: 0, border: "0px"}}>
                   <Collapse in={open === index} timeout="auto" unmountOnExit>
-                  <Box 
-                  sx={{width: "100%"}}> 
+                  <Box sx={{width: "100%"}}> 
                   
                   <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={4} justifyItems="center" alignItems="center">
                   <Chip label="Info" color="primary"/>
