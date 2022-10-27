@@ -46,9 +46,8 @@ const FrontPage = () => {
             </Box>
             <Box>
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
-                <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
-                <Select sx={{backgroundColor: "searchBar",}}
-                    labelId="dropdown-menu"
+                <InputLabel id="sort-dropdown-menu" size='small'>Sort by</InputLabel>
+                <Select sx={{backgroundColor: "searchBar"}}
                     id="select-search-filter"
                     label="Filter"
                     size='small'
@@ -63,9 +62,8 @@ const FrontPage = () => {
             </FormControl>
 
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
-                <InputLabel id="dropdown-menu" size='small'>Order</InputLabel>
-                <Select sx={{backgroundColor: "searchBar",}}
-                    labelId="dropdown-menu"
+                <InputLabel id="order-dropdown-menu" size='small'>Order</InputLabel>
+                <Select sx={{backgroundColor: "searchBar"}}
                     id="select-ascending-descending"
                     label="Filter"
                     size='small'
