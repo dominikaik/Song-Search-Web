@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import { RATE_SONG } from "../GraphQL/Mutations";
-import { Stack, Chip, Rating, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Collapse, IconButton, LinearProgress } from '@mui/material';
+import { Stack, Chip, Rating, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Collapse, IconButton, LinearProgress, Divider } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { getSongsInputs, songsDataType, songsType } from "../types/songData";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
@@ -87,36 +87,32 @@ function SongList() {
               <TableRow>
                 <TableCell colSpan={5} sx={{paddingBottom: 0, paddingTop: 0, border: "0px"}}>
                   <Collapse in={open === index} timeout="auto" unmountOnExit>
-                  <Box sx={{width: "100%"}}> 
+                  <Box sx={{width: "auto", display: "flex", flexWrap: 'wrap', flexDirection: 'column'}}> 
                   
-                  <Stack sx={{mt: "10px", mb: "10px", mx: "auto"}} direction="row" spacing={4} justifyItems="center" alignItems="center">
-                  <Chip label="Info" color="primary"/>
+                  <Chip label="Info" color="primary" sx={{width: 100, mt: 2}}/>
+                  <Stack mt={2} direction="row" spacing={2} flexWrap={"wrap"}>
                   <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
                   <Chip label={Math.floor(song.duration_ms / 60000) +" : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " min"} variant="outlined" />
                   {(song.explicit) ? (<Chip label={"Explicit"} variant="outlined" />) : (null)}
                   </Stack>
 
-                  <Stack sx={{styleEx}} direction="row" spacing={4}>
-                  <Chip label="Artists" color="primary"/>
+                  <Chip label="Artists" color="primary" sx={{width: 100, mt: 2}}/>
+                  <Stack mt={2} sx={{styleEx}} direction="row" spacing={2} flexWrap={"wrap"}>
                   {song.artists.map((artist: string, i:number) => (
-                    <Chip key={i} label={artist} variant="outlined" /> 
+                    <Chip key={i} label={artist} variant="outlined" />
                     ))}
                   
                   </Stack>
-                  <Box
-                    sx={{mt: -6, mb: 3}}
-                    flexDirection="column"
-                    display="flex"
-                    justifyContent="flex-end"
-                    alignItems="flex-end">
-                  Rate this song:
+              
+                  <Stack mt={2} direction="column" spacing={2}>
+                  <Typography sx={{color:"textColor"}} variant="subtitle2">Rate this song:</Typography>
                   <Rating
                       name="song-rating"
                       value={song.rating}
                       onChange={(event, newValue) => {rateSong({variables: {id: song._id, rating: newValue}})}}/>
-                  </Box> 
 
+                  </Stack>
                   </Box>
                   </Collapse>
                 </TableCell>
