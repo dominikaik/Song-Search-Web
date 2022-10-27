@@ -1,58 +1,51 @@
 import { useEffect, useState } from "react";
-import { useQuery } from '@apollo/client';
-import { GET_SONGS } from "../GraphQL/Queries";
+import { useReactiveVar } from '@apollo/client';
+import { MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Typography, Pagination} from '@mui/material';
+import { SortBy, SortTypes } from "../enums/order";
 import SongList from "./SongList";
-import {MenuItem, Select, InputLabel, FormControl, TextField, Button, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, useTheme} from '@mui/material';
-import { ClassNames } from "@emotion/react";
-
-const styleTable = {
-  p: "10px", 
-  mx: "auto"
-}
-
-const styleBtn = {
-  p: "10px", 
-}
+import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
 
 const FrontPage = () => {
-  const [inputs, setInputs] = useState<{search?: string, page: number, pageSize?: number}>({page: 1})
-  const [songs, setSongs] = useState<any>(); 
   const [search, setSearch] = useState<string>();
-  
-  const { loading, error, data } = useQuery(GET_SONGS, {
-    variables: inputs,
-  });
- 
+  const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
+  const page = useReactiveVar(songCurrentPage);
+  const totalPages = useReactiveVar(songTotalPages);
+  const inputs = useReactiveVar(songQueryVars);
+
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    songQueryVars({...inputs, page: value})
+    // Close open info on page change
+    openSongTab(-1)
+  };
 
   useEffect(() => {
-    if(data){
-      setSongs(data.getSongs)
-    }
-  }, [data])
+    //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
+    songQueryVars({page: 1, search: inputs.search, orderBy: {[sortBy]: sort}})
+    // Close open info when filtering
+    openSongTab(-1)
+  }, [sort, sortBy])
   
   
-  if (!songs) return <>Loading</>;
-  if (error) return <>error</>;
-
-
     return (
       <>
       <Typography sx={{color:"textColor"}} variant="h3">Spotify explorer</Typography>
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
             <TextField sx={{ width: "60%", borderRadius: "5px", backgroundColor: "searchBar"}} 
-                className="classes.palette"
                 id="search-text-field" 
                 color="searchBorder"
                 placeholder="Search..."
                 size="small" 
-                onChange={(e) => {
-                    setSearch(e.target.value)
-                }} value={search}/>
-            <Button color="buttonColor" variant="contained" sx={{ml: "10px"}}>
+                onChange={(e) => {setSearch(e.target.value)
+                }} value={search}
+                />              
+            <Button color="buttonColor" variant="contained" sx={{ml: "10px"}} onClick={() => {songQueryVars({search: search, page: 1}); openSongTab(-1)}} > 
                 Search
             </Button>
-
-            <FormControl sx={{ ml: "10px", minWidth: 120,}}>
+            </Box>
+            <Box>
+            <FormControl sx={{ ml: "10px", minWidth: 120 }}>
                 <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
                 <Select sx={{backgroundColor: "searchBar",}}
                     labelId="dropdown-menu"
@@ -60,56 +53,52 @@ const FrontPage = () => {
                     label="Filter"
                     size='small'
                     variant="outlined"
+                    defaultValue={"year"}
                 >
-                    <MenuItem value=""> <em>None</em> </MenuItem>
-                    <MenuItem value="filter1" >filter1</MenuItem>
-                    <MenuItem value="filter2" >filter2</MenuItem>
-                    <MenuItem value="filter3" >filter3</MenuItem>
+                    <MenuItem value="year" onClick={() => setSortBy(SortBy.year)} >Year</MenuItem>
+                    <MenuItem value="danceability" onClick={() => setSortBy(SortBy.danceability)} >Danceability</MenuItem>
+                    <MenuItem value="popularity" onClick={() => setSortBy(SortBy.popularity)} >Popularity</MenuItem>
+                    <MenuItem value="duration" onClick={() => setSortBy(SortBy.duration_ms)} >Duration</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl sx={{ ml: "10px", minWidth: 120 }}>
+                <InputLabel id="dropdown-menu" size='small'>Order</InputLabel>
+                <Select sx={{backgroundColor: "searchBar",}}
+                    labelId="dropdown-menu"
+                    id="select-ascending-descending"
+                    label="Filter"
+                    size='small'
+                    variant="outlined"
+                    defaultValue={"desc"}
+                >
+                    <MenuItem value="asc" onClick={() => setSort(SortTypes.asc)}>↑ Ascending</MenuItem>
+                    <MenuItem value="desc" onClick={() => setSort(SortTypes.desc)}>↓ Descending</MenuItem>
                 </Select>
             </FormControl>
         </Box>
 
-    <Box >
-    <Grid  item xs={12} md={9}
-    sx={styleTable}
-      container
-      direction="column"
-      alignItems="center" 
-      justifyContent="center"
-    >
-      <TableContainer sx={{mx:"auto", backgroundColor: "tableRow"}} component={Paper}>
-        <Table aria-label="songtable">
-          <TableHead >
-            <TableRow >
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="center">Year</TableCell>
-              <TableCell align="center">Danceability</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody >
-            {songs.songs.map(((song: {name: String, year: number, id: string, danceability: number }, i: number) => (
-              <TableRow color="tableRow"
-                 
-                key={song.id}
-              >
-                <TableCell align="left">{song.name}</TableCell>
-                <TableCell align="center">{song.year}</TableCell>
-                <TableCell align="center">{(song.danceability*100).toFixed()}%</TableCell>
-              </TableRow>
-            )))};
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Grid>
-    </Box>
-
-        <Button sx={{mr:2}} color="buttonColor" variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page - 1)})}}>Previous</Button>
-        Page {songs.page} of {songs.totalPages}
-        <Button sx={{ml:2}} color="buttonColor" variant="contained"  onClick={() => {setInputs({...inputs, page: Math.abs(inputs.page + 1)})}}>Next</Button>
+    <SongList/>
+      
+    <Grid 
+    container 
+    m={1}
+    display="flex"
+    direction="column"
+    alignItems="center" 
+    justifyContent="center">
+      <Pagination 
+      variant="outlined"
+      color="primary"
+      count={totalPages} 
+      page={page}
+      onChange={handlePageChange} 
+      />
+        </Grid>
       </>
-    );
+    )
   }
   
-export default FrontPage; 
+export default FrontPage;  
  
 

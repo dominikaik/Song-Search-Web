@@ -92,7 +92,7 @@ const changeTheme = (mode: PaletteMode) => ({
 });
 
 function App() {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode>("dark");
   const colorMode = useMemo(
     () => ({
       switchMode: () => {
@@ -111,9 +111,6 @@ function App() {
       <IconButton onClick={colorMode.switchMode} color="inherit" >
         {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
       </IconButton>
-      {/* <Button variant="contained" >
-                    Search
-                </Button> */}
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

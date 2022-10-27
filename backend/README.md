@@ -38,5 +38,34 @@ Om man ikke spesifiserer er page 1 som standard, og pageSize 10.
   }
 }
 
-
+```
+Søk og filtrering kan gjøres cirka slik:
+```
+getSongs(orderBy: {duration_ms: desc}, pageSize: 5, search: "Fire"){
+  ...
+}
+```
+## Egen rangering av sanger
+Tjenesten støtter egen rangering av sanger. Om den ikke er er rangert returnerer endepunket "null", da det ikke finnes en rangering på den spesifikke sangen.  
+En sang kan rangeres slik:  
+```
+mutation {
+  rateSong(_id: "634b4f1fdad5dd1cb9c85ad1", rating: 4){
+    name
+    rating
+    _id
+  }
+}
+```
+Dette gir output:
+```
+{
+  "data": {
+    "rateSong": {
+      "name": "Blinding Lights",
+      "rating": 4,
+      "_id": "634b4f1fdad5dd1cb9c85ad1"
+    }
+  }
+}
 ```
