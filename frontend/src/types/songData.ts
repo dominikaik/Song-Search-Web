@@ -22,3 +22,7 @@ export type songsType = {
     page: number,
     totalPages: number
 }
+
+export type songsDataType = {
+    getSongs: songsType
+}

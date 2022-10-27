@@ -65,7 +65,7 @@ const changeTheme = (mode: PaletteMode) => ({
 });
 
 function App() {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode>("dark");
   const colorMode = useMemo(
     () => ({
       switchMode: () => {
