@@ -2,22 +2,10 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import { RATE_SONG } from "../GraphQL/Mutations";
-import { Stack, Chip, Rating, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Collapse, IconButton, LinearProgress, Divider } from '@mui/material';
+import { Stack, Chip, Rating, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Collapse, IconButton, LinearProgress } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { getSongsInputs, songsDataType, songsType } from "../types/songData";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
-
-const styleTable = {
-  p: "10px", 
-  mx: "auto"
-}
-
-const styleEx = {
-  p: "10px",  
-  mx: "auto", 
-  mt: "10px", 
-  mb: "10px"
-}
 
 function SongList() {
 
@@ -48,7 +36,7 @@ function SongList() {
     <>
     <Box>
     <Grid item xs={12} md={9}
-      sx={styleTable}
+      sx={{mx: 'auto', p: '15px'}}
       container
       direction="column"
       alignItems="center" 
@@ -91,18 +79,17 @@ function SongList() {
                   
                   <Chip label="Info" color="primary" sx={{width: 100, mt: 2}}/>
                   <Stack mt={2} direction="row" spacing={2} flexWrap={"wrap"}>
-                  <Chip label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
+                  <Chip sx={{mb: 2}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
                   <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
                   <Chip label={Math.floor(song.duration_ms / 60000) +" : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " min"} variant="outlined" />
                   {(song.explicit) ? (<Chip label={"Explicit"} variant="outlined" />) : (null)}
                   </Stack>
 
                   <Chip label="Artists" color="primary" sx={{width: 100, mt: 2}}/>
-                  <Stack mt={2} sx={{styleEx}} direction="row" spacing={2} flexWrap={"wrap"}>
+                  <Stack mt={2} direction="row" spacing={2} flexWrap={"wrap"}>
                   {song.artists.map((artist: string, i:number) => (
-                    <Chip key={i} label={artist} variant="outlined" />
+                    <Chip key={i} label={artist} variant="outlined" sx={{mb: 2}}/>
                     ))}
-                  
                   </Stack>
               
                   <Stack mt={2} direction="column" spacing={2}>

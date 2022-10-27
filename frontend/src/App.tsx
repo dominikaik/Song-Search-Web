@@ -3,7 +3,7 @@ import "./App.css";
 import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-import { PaletteMode, IconButton, Button } from "@mui/material";
+import { PaletteMode, IconButton } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { CssBaseline } from "@mui/material";
 
@@ -58,7 +58,7 @@ const changeTheme = (mode: PaletteMode) => ({
           },
           divider: "#354F52",
           background: {
-            default: "#52796F" 
+            default: "#52796F" //#708f77 use this instead? 
           },
           IconButton: {
             custom: {main: "pink"}
