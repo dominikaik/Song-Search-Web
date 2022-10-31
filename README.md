@@ -42,7 +42,7 @@ ___
 -appollo client
 
 ### Datavalg
-rating, datasett
+In this project we have chosen to use the “Spotify-Data 1921-2020” dataset from [Kaggle](https://www.kaggle.com/datasets/ektanegi/spotifydata-19212020). This dataset contains more than 160000 songs from Spotify Web API with top 100 songs included for each year. The dataset also includes song id, name of the song, artists, release date, danceability, popularity, duration, energy, and a lot more for each of the songs. This allowed us to include different data from the dataset in our website.
 
 ### Bibiliotek for stiler og ferdige komponenter
 -mui
@@ -51,4 +51,4 @@ rating, datasett
 - appollo reaktive variabler
   
 ## Testing
--jest
+For unit testing we created an input change test and various render tests to test the React components in our website. Since it is difficult to test the components that use the Apollo Client, we utilized *MockedProvider* which allows to define mock response for specific queries that are run as part of the tests. We also used Jest and the React Testing Library to render and find information on the screen along with *fireEvent* to test the input change.
