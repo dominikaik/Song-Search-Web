@@ -78,17 +78,17 @@ function SongList() {
                   <Box sx={{width: "auto", display: "flex", flexWrap: 'wrap', flexDirection: 'column'}}> 
                   
                   <Chip label="Info" color="primary" sx={{width: 100, mt: 2}}/>
-                  <Stack mt={2} direction="row" spacing={2} flexWrap={"wrap"}>
-                  <Chip sx={{mb: 2}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
-                  <Chip label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
-                  <Chip label={Math.floor(song.duration_ms / 60000) +" : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " min"} variant="outlined" />
+                  <Stack mt={2} direction="row" flexWrap={"wrap"}>
+                  <Chip sx={{mb: 2, mr: 2}} label={"Danceability: "+ (song.danceability * 100).toFixed()+"%"} variant="outlined" />
+                  <Chip sx={{mb: 2, mr: 2}} label={"Popularity: "+ song.popularity + " / 100"} variant="outlined" />
+                  <Chip sx={{mb: 2, mr: 2}} label={Math.floor(song.duration_ms / 60000) +" : "+ ((song.duration_ms % 60000) / 1000).toFixed(0) + " min"} variant="outlined" />
                   {(song.explicit) ? (<Chip label={"Explicit"} variant="outlined" />) : (null)}
                   </Stack>
 
                   <Chip label="Artists" color="primary" sx={{width: 100, mt: 2}}/>
-                  <Stack mt={2} direction="row" spacing={2} flexWrap={"wrap"}>
+                  <Stack mt={2} direction="row" flexWrap={"wrap"}>
                   {song.artists.map((artist: string, i:number) => (
-                    <Chip key={i} label={artist} variant="outlined" sx={{mb: 2}}/>
+                    <Chip key={i} label={artist} variant="outlined" sx={{mb: 2, mr: 2}}/>
                     ))}
                   </Stack>
               
