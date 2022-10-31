@@ -22,7 +22,6 @@ const styleEx = {
 function SongList() {
 
     //const [inputs, setInputs] = useState<getSongsInputs>({page: 1, orderBy: {year: SortTypes.desc}})
-    const [songs, setSongs] = useState<songsType>(); 
     const songVars = useReactiveVar(songQueryVars);
     const open = useReactiveVar(openSongTab);
 
@@ -35,15 +34,14 @@ function SongList() {
   
     useEffect(() => {
       if(data){
-        setSongs(data.getSongs)
         songCurrentPage(data.getSongs.page)
         songTotalPages(data.getSongs.totalPages)
       }
     }, [data])
     
     
-  if (!songs && loading) return <><LinearProgress /></>;
-  if (error || !songs) return <><Box style={{ minHeight: '80vh' }} display="flex" justifyContent={"center"} alignItems={"center"} ><Typography color={"white"} variant="h5">Something went wrong :/<br/>Is the backend server running?</Typography></Box></>;
+  if (loading) return <><LinearProgress sx={{m: 10}} /></>;
+  if (error || !data) return <><Box style={{ minHeight: '80vh' }} display="flex" justifyContent={"center"} alignItems={"center"} ><Typography color={"white"} variant="h5">Something went wrong :/<br/>Is the backend server running?</Typography></Box></>;
   return (
     <>
     <Box>
@@ -65,7 +63,7 @@ function SongList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {songs.songs.map(((song, index: number) => (
+            {data.getSongs.songs.map(((song, index: number) => (
               <>
               <TableRow key={song._id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}

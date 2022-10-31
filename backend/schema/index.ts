@@ -48,7 +48,7 @@ module.exports = buildSchema(`
   }
 
   type Mutation {
-    rateSong(_id: ID!, rating: Int!): Song
+    rateSong(_id: ID!, rating: Int): Song
   }
 
   schema {
