@@ -1,5 +1,6 @@
 # Prosjekt 3 - gruppe 67
 
+Husk å kjøre `npm i`  i frontend-mappa og i backend-mappa (hver for seg) første gang du kjører prosjektet.
 ___
 ## Kjøre backend
 

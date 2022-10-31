@@ -1,5 +1,6 @@
 # Frontend
-
+Husk å kjøre `npm i`  i frontend-mappa første gang du kjører prosjektet
+___
 ## Kjøre react app 
 
 #### `npm start`
