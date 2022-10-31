@@ -26,6 +26,10 @@ const FrontPage = () => {
     // Close open info when filtering
     openSongTab(-1)
   }, [sort, sortBy])
+
+  useEffect(() => {
+    document.title = 'Spotify explorer';
+  }, [])
   
   
     return (
