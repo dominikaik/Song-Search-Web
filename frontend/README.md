@@ -9,3 +9,8 @@ ___
 ## Kjøre enhetstester
 
 ### `npm test`
+___
+## Kjøre ende-til-ende tester
+
+### `npm run e2e`
+___
