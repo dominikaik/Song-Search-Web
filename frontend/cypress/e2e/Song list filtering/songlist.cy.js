@@ -15,7 +15,6 @@ describe('Spotify explorer, list test', () => {
   })
 
   it('Can filter on danceability', () => {
-
     cy.get('#select-search-filter').click() 
     cy.get('li').each(($elem) => {
     if ($elem.text() == "Danceability") {
@@ -28,9 +27,16 @@ describe('Spotify explorer, list test', () => {
 
   it('Search for songs by Kygo', () => {
     const search = 'Kygo'
+    // Intercept new request after search
+    cy.intercept('POST', '/graphql', (req) => {
+      if (req.body.hasOwnProperty('query') && req.body.query.includes('query')) {
+        req.alias = 'search'
+      }
+    })
     cy.get('#search-text-field').type(`${search}`)
     cy.get('.MuiButtonBase-root').contains('Search').click()
-    cy.wait(500)
+    // Wait for search response
+    cy.wait('@search')
     // The second song with the default sorting should have the name Not Ok
     cy.get('.MuiTableBody-root td').eq(6).should('have.text', 'Not Ok')
     // The next table/td cell is the song year
@@ -38,17 +44,17 @@ describe('Spotify explorer, list test', () => {
   })
 
   it('Page 2 contains 10 new elements', () => {
+    cy.intercept('POST', '/graphql', (req) => {
+      if (req.body.hasOwnProperty('query') && req.body.query.includes('query')) {
+        req.alias = 'pageChange'
+      }
+    })
     cy.get(`[aria-label="Go to page 2"]`).click()
-    cy.wait(500)
+    // Wait for new data when page change
+    cy.wait('@pageChange')
     cy.get('.MuiTableBody-root').find('tr').should('have.length', 20)
     // The first song with the default sorting should now have the name 327
     cy.get('.MuiTableBody-root td').eq(1).should('have.text', '327')
     cy.get('.MuiTableBody-root td').eq(1).should('not.have.text', 'Como Llora')
   })
-
- it('Rate song sends a request', () => {
-  cy.get('.MuiTableBody-root td').first().click()
-  cy.get('.MuiChip-label').first().should('have.text', 'Info')
-  cy.get('.MuiChip-label').eq(1).should('have.text', 'Danceability: 83%')
- })
 })
