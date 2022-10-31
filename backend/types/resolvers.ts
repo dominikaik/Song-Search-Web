@@ -19,5 +19,5 @@ export type searchQueryType = {
 
 export type rateSongArgs = {
     _id: string, 
-    rating: number
+    rating: number | null
 }
