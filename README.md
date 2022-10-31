@@ -44,11 +44,13 @@ For å fetche data med graphql valgte vi å bruke Apollo client, da den gir oss 
 ## Global state management 
 For å oppdatere queries i andre komponenter har vi tatt i bruk reaktive variabler, slik at alle komponenter har mulighet til å endre på queries. Om en reaktiv variabel brukes som input for et query, oppfatter den endringen med en gang, og enten fetcher på nytt, eller henter fra cachene om den samme dataen har blitt hentet tidligere. Denne bruken av apollo gjør at siden oppfattes raskere, og at for eksempel rating-systemet kan oppdateres i frontend før appen har fått respons fra server.
 
-### Datavalg
+## Datavalg
 In this project we have chosen to use the “Spotify-Data 1921-2020” dataset from [Kaggle](https://www.kaggle.com/datasets/ektanegi/spotifydata-19212020). This dataset contains more than 160000 songs from Spotify Web API with top 100 songs included for each year. The dataset also includes song id, name of the song, artists, release date, danceability, popularity, duration, energy, and a lot more for each of the songs. This allowed us to include different data from the dataset in our website.
 
-### Bibiliotek for stiler og ferdige komponenter
--mui
-  
+## Responsiv layout og eksterne komponenter 
+For å oppfylle kravet om valg av tredjeparts komponenter bestemte vi oss tidlig for å benytte oss av React biblioteket Material UI (MUI), for å bygge brukergrensesnittet. MUI komponenter er brukt til styling på hele nettsiden, blant annet på search-bar, filter og pagination. Collapse-komponenten ble brukt for at en bruker skal kunne trykke på en sang for å vise mer informasjon om sangen, flere artister og annen relevant informasjon. 
+
+For å vise frem listen med sanger ble MUI Grid brukt for plassering av elementer på siden, og for å sørge for responsivitet og gjennomgående konsistens i layout. Vi har stylet komponenter ved bruk av inline CSS gjennom MUI, og benyttet oss ikke av egne CSS-styling-filer. Vi syns ikke det var nødvendig å bruke det når MUI gir mye gratis når det kommer til styling. Det meste ble gjort ved å bruke “sx-property” som er en snarvei for å definere styling av MUI-komponenter. For å få elementer til å tilpasse seg mindre skjermstørrelser som på f.eks. mobil eller Ipad, brukte vi MUIs Flexbox properties og sx-property “flexWrap”. FlexWrap sørger for at elementer plasseres under hverandre når skjermen blir liten og for å unngå overflow.  
+
 ## Testing
 For unit testing we created an input change test and various render tests to test the React components in our website. Since it is difficult to test the components that use the Apollo Client, we utilized *MockedProvider* which allows to define mock response for specific queries that are run as part of the tests. We also used Jest and the React Testing Library to render and find information on the screen along with *fireEvent* to test the input change.
