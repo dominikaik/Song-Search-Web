@@ -1,12 +1,9 @@
-import FrontPage from '../components/FrontPage'
-import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import App from '../App';
 import { MockedProvider } from "@apollo/client/testing";
 import "@testing-library/jest-dom";
 import { GET_SONGS } from "../GraphQL/Queries";
-import { Pagination, TableBody, TableCell, TableRow } from '@mui/material';
 
 const mocks = [
   {
@@ -18,7 +15,7 @@ const mocks = [
     },
     result: {
       data: {
-        songs: { _id:"634b4ee3dad5dd1cb9c722c4", name:"Sad Forever", artists:"Lauv", year:"2020", danceability: "0.527", popularity:"71", duration:"203507" }
+        songs: { _id:"634b4ee3dad5dd1cb9c722c4", name:"Sad Forever", artists:"Lauv", year:"2020", danceability: "0.527", popularity:"71", duration:"203507"}
       }
     }
   }
@@ -87,4 +84,3 @@ test('test input', async () => {
   fireEvent.change(input, { target: { value: 'kygo' } })
   expect(screen.getByPlaceholderText("Search...")).toHaveValue("kygo")
 });
-
