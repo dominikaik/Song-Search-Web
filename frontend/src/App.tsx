@@ -3,28 +3,49 @@ import "./App.css";
 import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-import { PaletteMode, IconButton, Button } from "@mui/material";
+import { PaletteMode, IconButton } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ switchMode: () => {} });
 
-declare module "@mui/material/styles/createPalette" { //Find the source for this and add in comment 
+declare module "@mui/material/styles/createPalette" { 
   interface Palette {
     custom: { main: string };
-    //buttonColor: {main: string };
+    buttonColor: {main: string };
+    tableRow: string;
+    searchBar: string;
+    textColor: string;
+    searchBorder: string;
   }
   interface PaletteOptions {
     custom: { main: string };
-    //buttonColor: {main: string };
+    buttonColor: {main: string };
+    tableRow: string;
+    searchBar: string;
+    textColor: string;
+    searchBorder: string;
   }
 }
 
-//declare module '@mui/material/Button' {
-//  interface ButtonPropsColorOverrides {
-//    buttonColor: true;
-//  }
-//}
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    buttonColor: true;
+  }
+}
+
+declare module'@mui/material/Typography' {
+  interface TypographyPropsColorOverrides {
+    textColor: true;
+  }
+}
+
+declare module '@mui/material/TextField' {
+  interface TextFieldPropsColorOverrides {
+    searchBar: true;
+    searchBorder: true;
+  }
+}
 
 const changeTheme = (mode: PaletteMode) => ({
   palette: {
@@ -33,33 +54,39 @@ const changeTheme = (mode: PaletteMode) => ({
       ? {
           // Light mode palette
           custom: { 
-            main: "#84A98C" 
+            main: "#CAD2C5" 
           },
           divider: "#354F52",
           background: {
-            default: "#84A98C" 
-          },
-          text: {
-            custom: { main: "black" },
-            secondary: "grey",
+            default: "#52796F" 
           },
           IconButton: {
             custom: {main: "pink"}
           },
+          buttonColor: {
+            main: "#CAD2C5"
+          },
+          tableRow: "white",
+          searchBar: "white",
+          textColor: "white",
+          searchBorder: "pink",
         }
       : {
           // Dark mode palette
           custom: { 
-            main: "#CAD2C5" 
+            main: "#2F3E46" 
           },
           divider: grey[200],
           background: {
             default: "#354F52",
           },
-          text: {
-            custom: { main: "white" },
-            secondary: grey[500],
+          buttonColor: {
+            main: "#2F3E46"
           },
+          tableRow: grey[900],
+          searchBar: grey[900],
+          textColor: "white",
+          searchBorder: "pink",
         }),
   },
 });
