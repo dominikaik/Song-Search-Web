@@ -9,7 +9,7 @@ import { CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ switchMode: () => {} });
 
-declare module "@mui/material/styles/createPalette" { //Find the source for this and add in comment 
+declare module "@mui/material/styles/createPalette" { 
   interface Palette {
     custom: { main: string };
     buttonColor: {main: string };
@@ -58,7 +58,7 @@ const changeTheme = (mode: PaletteMode) => ({
           },
           divider: "#354F52",
           background: {
-            default: "#52796F" //#708f77 use this instead? 
+            default: "#52796F" 
           },
           IconButton: {
             custom: {main: "pink"}

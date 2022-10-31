@@ -82,12 +82,12 @@ const FrontPage = () => {
       
     <Grid 
     container 
-    m={1}
     display="flex"
     direction="column"
     alignItems="center" 
     justifyContent="center">
       <Pagination 
+      sx={{mb: "10px"}}
       variant="outlined"
       color="primary"
       count={totalPages} 

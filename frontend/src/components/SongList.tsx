@@ -9,7 +9,6 @@ import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../
 
 function SongList() {
 
-    //const [inputs, setInputs] = useState<getSongsInputs>({page: 1, orderBy: {year: SortTypes.desc}})
     const [songs, setSongs] = useState<songsType>(); 
     const songVars = useReactiveVar(songQueryVars);
     const open = useReactiveVar(openSongTab);
@@ -59,7 +58,7 @@ function SongList() {
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>
                   <IconButton
-                    onClick={() => openSongTab(open === index ? -1 : index)}
+                    onClick={() => openSongTab(open === index ? -1 : index)} //Opens song tab if closed, closes the previous tab if new one is clicked
                   >
                     {open === index ? (
                       <KeyboardArrowUp />
