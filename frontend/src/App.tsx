@@ -3,13 +3,13 @@ import "./App.css";
 import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-import { PaletteMode, IconButton, Button } from "@mui/material";
+import { PaletteMode, IconButton } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ switchMode: () => {} });
 
-declare module "@mui/material/styles/createPalette" { //Find the source for this and add in comment 
+declare module "@mui/material/styles/createPalette" { 
   interface Palette {
     custom: { main: string };
     buttonColor: {main: string };
