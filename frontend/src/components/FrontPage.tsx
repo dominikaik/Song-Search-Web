@@ -6,7 +6,7 @@ import SongList from "./SongList";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
 
 const FrontPage = () => {
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
   const page = useReactiveVar(songCurrentPage);
@@ -22,9 +22,12 @@ const FrontPage = () => {
 
   useEffect(() => {
     //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
-    songQueryVars({page: 1, search: inputs.search, orderBy: {[sortBy]: sort}})
+    songQueryVars({...inputs, page: 1, orderBy: {[sortBy]: sort}})
     // Close open info when filtering
     openSongTab(-1)
+    // Eslint thinks useEffect should re-render when reactive variable changes.
+    // This will cause a loop/wrong behavior, we therefore remove this rule.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, sortBy])
 
   useEffect(() => {
@@ -50,9 +53,8 @@ const FrontPage = () => {
             </Box>
             <Box>
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
-                <InputLabel id="dropdown-menu" size='small'>Sort by</InputLabel>
-                <Select sx={{backgroundColor: "searchBar",}}
-                    labelId="dropdown-menu"
+                <InputLabel id="sort-dropdown-menu" size='small'>Sort by</InputLabel>
+                <Select sx={{backgroundColor: "searchBar"}}
                     id="select-search-filter"
                     label="Filter"
                     size='small'
@@ -67,9 +69,8 @@ const FrontPage = () => {
             </FormControl>
 
             <FormControl sx={{ ml: "10px", minWidth: 120 }}>
-                <InputLabel id="dropdown-menu" size='small'>Order</InputLabel>
-                <Select sx={{backgroundColor: "searchBar",}}
-                    labelId="dropdown-menu"
+                <InputLabel id="order-dropdown-menu" size='small'>Order</InputLabel>
+                <Select sx={{backgroundColor: "searchBar"}}
                     id="select-ascending-descending"
                     label="Filter"
                     size='small'
