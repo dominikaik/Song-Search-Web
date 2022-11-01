@@ -9,7 +9,7 @@ Gå inn i backend-mappa
 #### `npm run dev`
 Alternativt (uten hot reloading):
 #### `npm run deploy`
-Du finner så serveren på [http://localhost:4000/graphql](http://localhost:4000/graphql/)
+Du finner så serveren på [http://localhost:4000/graphql](http://localhost:4000/graphql/)  
 Merk: du må være på eduroam eller NTNU-VPN for at backend skal kunne aksessere databasen. Serveren vil ikke starte uten dette.
 ___
 ## Kjøre frontend 
@@ -34,11 +34,11 @@ ___
 ___
 # Dokumentasjon
 
-## Valg av rammeverk for graphQL i [backend](backend/README.md)
+## Valg av rammeverk for graphQL i [backend](/backend/)
 Vi valgte tidlig å bruke mongoDB som database, og siden mongoose i node sammarbeider bra med denne valgte vi å skrive en backend i express. For å enkelt implementere graphQL i express sto vi mellom express-graphQL eller apollo server. Vi valgte expresss-graphQL fordi vi testet ut denne først, og pakken lot oss skrive mye backend-logikk på kort tid. Vi bruker skip og limit fra mongoose for å paginere i backend, og legger til en sort på slutten for å sortere resultatet. Når vi spør etter data legger vi til en regex i find()-metoden om brukeren søker etter data, slik at resutlatet kun inneholder sanger som matcher søkeordet.  
 En mer detaljert oversikt over API-et finnes [her](/backend/README.md).
 
-## Valg av rammeverk for graphQL i [frontend](frontend/README.md)
+## Valg av rammeverk for graphQL i [frontend](/frontend/)
 For å fetche data med graphql valgte vi å bruke Apollo client, da den gir oss innebygget chaching og et bibliotek for state management. For å hente data bruker vi useQuery- og useMutation hooks, da de sammarbeider godt med cachen. 
 
 ## Global state management 
