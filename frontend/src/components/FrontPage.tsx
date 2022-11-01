@@ -41,7 +41,6 @@ const FrontPage = () => {
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
             <TextField sx={{ width: "60%", borderRadius: "5px", backgroundColor: "searchBar"}} 
                 id="search-text-field" 
-                color="searchBorder"
                 placeholder="Search..."
                 size="small" 
                 onChange={(e) => {setSearch(e.target.value)

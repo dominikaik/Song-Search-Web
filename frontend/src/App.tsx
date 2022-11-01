@@ -9,14 +9,13 @@ import { CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ switchMode: () => {} });
 
-declare module "@mui/material/styles/createPalette" { 
+declare module "@mui/material/styles/createPalette" { //Inspired by: https://stackoverflow.com/questions/60424596/cant-customize-color-palette-types-on-material-ui-theme-in-typescript
   interface Palette {
     custom: { main: string };
     buttonColor: {main: string };
     tableRow: string;
     searchBar: string;
     textColor: string;
-    searchBorder: string;
   }
   interface PaletteOptions {
     custom: { main: string };
@@ -24,7 +23,6 @@ declare module "@mui/material/styles/createPalette" {
     tableRow: string;
     searchBar: string;
     textColor: string;
-    searchBorder: string;
   }
 }
 
@@ -43,7 +41,6 @@ declare module'@mui/material/Typography' {
 declare module '@mui/material/TextField' {
   interface TextFieldPropsColorOverrides {
     searchBar: true;
-    searchBorder: true;
   }
 }
 
@@ -60,16 +57,12 @@ const changeTheme = (mode: PaletteMode) => ({
           background: {
             default: "#52796F" 
           },
-          IconButton: {
-            custom: {main: "pink"}
-          },
           buttonColor: {
             main: "#CAD2C5"
           },
           tableRow: "white",
           searchBar: "white",
           textColor: "white",
-          searchBorder: "pink",
         }
       : {
           // Dark mode palette
@@ -86,7 +79,6 @@ const changeTheme = (mode: PaletteMode) => ({
           tableRow: grey[900],
           searchBar: grey[900],
           textColor: "white",
-          searchBorder: "pink",
         }),
   },
 });
