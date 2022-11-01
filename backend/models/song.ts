@@ -51,7 +51,7 @@ const songSchema = new Schema(
     required: false,
 },
   },
-  {collection: "songs2"}
+  {collection: "spotifySongs"}
 )
 
 module.exports = model("Song", songSchema)

@@ -1,4 +1,4 @@
-import { useState, useMemo, createContext } from "react";
+import { useState, useMemo, createContext, useEffect } from "react";
 import "./App.css";
 import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -84,13 +84,21 @@ const changeTheme = (mode: PaletteMode) => ({
 });
 
 function App() {
-  const [mode, setMode] = useState<PaletteMode>("dark");
+  const lightMode = localStorage.getItem("lightMode");
+  // If stored mode is light use light, else use dark (default)
+  const [mode, setMode] = useState<PaletteMode>((lightMode == "light") ? ("light") : ("dark"));
+  
+  // Save light or dark mode when changed
+  useEffect(() => {
+    localStorage.setItem("lightMode", String(mode))
+  }, [mode])
+  
   const colorMode = useMemo(
     () => ({
       switchMode: () => {
-        setMode((prevMode: PaletteMode) =>
+        setMode((prevMode: PaletteMode) => 
           prevMode === "light" ? "dark" : "light"
-        );
+        )
       },
     }),
     []

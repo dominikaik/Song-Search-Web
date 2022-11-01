@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_SONGS } from "../GraphQL/Queries";
 import { RATE_SONG } from "../GraphQL/Mutations";
 import { Stack, Chip, Rating, Box, Grid, Table, TableCell, TableBody, TableContainer, TableRow, TableHead, Paper, Typography, Collapse, IconButton, LinearProgress } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { getSongsInputs, songsDataType, songsType } from "../types/songData";
+import { getSongsInputs, songsDataType } from "../types/songData";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
 
 function SongList() {
