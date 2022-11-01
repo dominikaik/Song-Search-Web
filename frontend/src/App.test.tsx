@@ -4,7 +4,7 @@ import App from './App';
 import {mocks} from './__mocks__/datamock'; 
 import { MockedProvider } from '@apollo/client/testing';
 
-it("renders page correctly", () => {
+it("should match snapshot", () => {
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <App />
