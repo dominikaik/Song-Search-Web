@@ -9,7 +9,7 @@ import { CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ switchMode: () => {} });
 
-declare module "@mui/material/styles/createPalette" { 
+declare module "@mui/material/styles/createPalette" { //Inspired by: https://stackoverflow.com/questions/60424596/cant-customize-color-palette-types-on-material-ui-theme-in-typescript
   interface Palette {
     custom: { main: string };
     buttonColor: {main: string };
