@@ -25,6 +25,9 @@ const FrontPage = () => {
     songQueryVars({...inputs, page: 1, orderBy: {[sortBy]: sort}})
     // Close open info when filtering
     openSongTab(-1)
+    // Eslint thinks useEffect should re-render when reactive variable changes.
+    // This will cause a loop/wrong behavior, we therefore remove this rule.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, sortBy])
 
   useEffect(() => {
