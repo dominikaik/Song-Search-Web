@@ -31,13 +31,14 @@ const FrontPage = () => {
   }, [sort, sortBy])
 
   useEffect(() => {
-    document.title = 'Spotify explorer';
+    document.title = 'Spotify explorer'
   }, [])
   
   
     return (
       <>
-      <Typography sx={{color:"textColor"}} variant="h3">Spotify explorer</Typography>
+      <Typography sx={{color:"textColor"}} fontSize="3em" variant="h1">Spotify explorer</Typography>
+      <Typography m={2} mx={8} sx={{color:"textColor"}} fontSize="1.2em" variant="h1">Browse through over 169 thousand songs from spotify between 1921 and 2020, and rate your favorites</Typography>
         <Box sx={{ mt: "20px", mb: "10px", mx: "30px",  minWidth:200}}>
             <TextField sx={{ width: "60%", borderRadius: "5px", backgroundColor: "searchBar"}} 
                 id="search-text-field" 
@@ -91,7 +92,7 @@ const FrontPage = () => {
     alignItems="center" 
     justifyContent="center">
       <Pagination 
-      sx={{mb: "10px"}}
+      sx={{mb: 5}}
       variant="outlined"
       color="primary"
       count={totalPages} 
