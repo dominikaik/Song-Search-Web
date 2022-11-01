@@ -3,23 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import App from '../App';
 import { MockedProvider } from "@apollo/client/testing";
 import "@testing-library/jest-dom";
-import { GET_SONGS } from "../GraphQL/Queries";
-
-const mocks = [
-  {
-    request: {
-      query: GET_SONGS,
-      variables: {
-        name: "Sad Forever"
-      }
-    },
-    result: {
-      data: {
-        songs: { _id:"634b4ee3dad5dd1cb9c722c4", name:"Sad Forever", artists:"Lauv", year:"2020", danceability: "0.527", popularity:"71", duration:"203507"}
-      }
-    }
-  }
-];
+import { mocks } from '../__mocks__/datamock'; 
 
 // test if the title renders correctly
 test('should render title', async () => {

@@ -1,9 +1,16 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render} from '@testing-library/react';
 import App from './App';
+import {mocks} from './__mocks__/datamock'; 
+import { MockedProvider } from '@apollo/client/testing';
 
-/* test('renders application', () => {
-  render(<App />);
-  const pageTitle = screen.getByText(/Spotify explorer/i);
-  expect(pageTitle).toBeInTheDocument();
-}); */
+it("renders page correctly", () => {
+  render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <App />
+    </MockedProvider>
+  );
+  expect(mocks).toMatchSnapshot();
+});
+
+
