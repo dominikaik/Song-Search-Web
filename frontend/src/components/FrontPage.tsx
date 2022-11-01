@@ -6,7 +6,7 @@ import SongList from "./SongList";
 import { openSongTab, songCurrentPage, songQueryVars, songTotalPages } from '../GraphQL/cache';
 
 const FrontPage = () => {
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
   const [sort, setSort] = useState<SortTypes>(SortTypes.desc);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.year)
   const page = useReactiveVar(songCurrentPage);
@@ -22,7 +22,7 @@ const FrontPage = () => {
 
   useEffect(() => {
     //Using reactive variables in apollo to refetch with new queries if sort order or parameter is changed.
-    songQueryVars({page: 1, search: inputs.search, orderBy: {[sortBy]: sort}})
+    songQueryVars({...inputs, page: 1, orderBy: {[sortBy]: sort}})
     // Close open info when filtering
     openSongTab(-1)
   }, [sort, sortBy])

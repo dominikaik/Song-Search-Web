@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders page correctly 1`] = `
+exports[`should match snapshot 1`] = `
 Array [
   Object {
     "request": Object {
