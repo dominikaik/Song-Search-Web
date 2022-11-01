@@ -3,7 +3,7 @@ import "./App.css";
 import FrontPage from "./components/FrontPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-import { PaletteMode, IconButton } from "@mui/material";
+import { PaletteMode, Button, Typography } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { CssBaseline } from "@mui/material";
 
@@ -55,7 +55,7 @@ const changeTheme = (mode: PaletteMode) => ({
           },
           divider: "#354F52",
           background: {
-            default: "#52796F" 
+            default: "#52796f" 
           },
           buttonColor: {
             main: "#CAD2C5"
@@ -63,11 +63,15 @@ const changeTheme = (mode: PaletteMode) => ({
           tableRow: "white",
           searchBar: "white",
           textColor: "white",
+          button:{
+            color: '#ffffff', 
+            borderColor: '#ffffff'
+          }
         }
       : {
           // Dark mode palette
           custom: { 
-            main: "#2F3E46" 
+            main: "#2F3E46"
           },
           divider: grey[200],
           background: {
@@ -107,10 +111,13 @@ function App() {
   const theme = useMemo(() => createTheme(changeTheme(mode)), [mode]);
 
   return (
-    <div className="App">
-      <IconButton onClick={colorMode.switchMode} color="inherit" >
-        {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-      </IconButton>
+    <>
+      <Button sx={{m: 1, color: "#fff"}} title="toggle light/dark mode" onClick={colorMode.switchMode}>
+        {theme.palette.mode === "dark" ? 
+        <><Brightness7/><Typography color={"#fff"} ml={1}>Light Mode</Typography></>
+        : <><Brightness4 /><Typography color={"#fff"} ml={1}>Dark Mode</Typography></>}
+      </Button>
+      <div className="App">
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -118,6 +125,7 @@ function App() {
         </ThemeProvider>
       </ColorModeContext.Provider>
     </div>
+    </>
   );
 }
 

@@ -43,7 +43,7 @@ function SongList() {
         <Table aria-label="songtable">
           <TableHead>
             <TableRow key="song-table-titles">
-              <TableCell key="empty"></TableCell>
+              <TableCell title="empty" key="empty"></TableCell>
               <TableCell key="name" >Name</TableCell>
               <TableCell key="main-artist">Main Artist</TableCell>
               <TableCell key="year">Year</TableCell>
@@ -55,7 +55,7 @@ function SongList() {
               <TableRow key={song._id}>
                 {/* Inspiration from this video: https://www.youtube.com/watch?v=3v2cxwvWh80&t=688s */}
                 <TableCell>
-                  <IconButton
+                  <IconButton title="expand song info"
                     onClick={() => openSongTab(open === index ? -1 : index)} //Opens song tab if closed, closes the previous tab if new one is clicked
                   >
                     {open === index ? (
