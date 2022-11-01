@@ -26,6 +26,10 @@ const FrontPage = () => {
     // Close open info when filtering
     openSongTab(-1)
   }, [sort, sortBy])
+
+  useEffect(() => {
+    document.title = 'Spotify explorer';
+  }, [])
   
   
     return (
@@ -80,12 +84,12 @@ const FrontPage = () => {
       
     <Grid 
     container 
-    m={1}
     display="flex"
     direction="column"
     alignItems="center" 
     justifyContent="center">
       <Pagination 
+      sx={{mb: "10px"}}
       variant="outlined"
       color="primary"
       count={totalPages} 

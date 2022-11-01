@@ -1,4 +1,6 @@
 # Backend
+Husk å kjøre `npm i`  i backend-mappa første gang du kjører prosjektet
+___
 
 ### Hvordan kjøre server:
 ```
